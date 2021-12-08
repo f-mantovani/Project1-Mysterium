@@ -1,0 +1,20 @@
+*{
+    background-color: rgb(81, 99, 153);
+    border: 2px solid red;
+    margin: 10px;
+    padding: 20px;
+}
+
+img {
+    width: 200px;
+}
+
+#weapons > img {
+    height: 140px;
+    width: auto;
+}
+
+#ghost-hand > img {
+    width: 70px;
+    height: auto;
+}
