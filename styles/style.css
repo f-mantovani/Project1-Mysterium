@@ -18,7 +18,23 @@ img {
     width: 70px;
     height: auto;
 }
+
+#red-mystery {
+    display: flex;
+    
+}
+
+#red-mystery > img {
+    height: 140px;
+    width: 200px;
+    
+}
+
 #p-hand > img {
     width: 70px;
     height: auto;
+}
+
+.active {
+    border: 3px solid black;
 }

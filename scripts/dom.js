@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
     const weaponsPlayerTable = document.querySelector('#weapons');
     const visionsHand = document.querySelector('#ghost-hand');
     const playerHand = document.querySelector('#p-hand')
+    const redMystery = document.querySelector('#red-mystery')
 
     
     class Board {
@@ -13,6 +14,7 @@ window.addEventListener('load', () => {
             this.uniquePlaces = [];
             this.uniqueWeapons = [];
             this.uniqueVisions = [];
+            this.turns = 0;
         }
     
         randomBoard = () => {
@@ -45,16 +47,16 @@ window.addEventListener('load', () => {
     
         populateBoard = () => {
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
-             suspectPlayerTable.innerHTML += `<img src=${this.uniqueSuspects[i].image} />`
+             suspectPlayerTable.innerHTML += `<img src=${this.uniqueSuspects[i].image} class="suspect-card" />`
             }
             for (let i = 0; i < this.uniquePlaces.length; i += 1){
-             placesPlayerTable.innerHTML += `<img src=${this.uniquePlaces[i].image} />`
+             placesPlayerTable.innerHTML += `<img src=${this.uniquePlaces[i].image} class="place-card" />`
             }
             for (let i = 0; i < this.uniqueWeapons.length; i += 1){
-             weaponsPlayerTable.innerHTML += `<img src=${this.uniqueWeapons[i].image} />`
+             weaponsPlayerTable.innerHTML += `<img src=${this.uniqueWeapons[i].image} class="weapon-card" />`
             }
             for (let i = 0; i < this.uniqueVisions.length; i += 1){
-             visionsHand.innerHTML += `<img src=${this.uniqueVisions[i].image} />`
+             visionsHand.innerHTML += `<img src=${this.uniqueVisions[i].image} class="vision-card" />`
             }
          }
     }
@@ -62,21 +64,42 @@ window.addEventListener('load', () => {
     
     class Ghost {
         constructor(){
-            this.suspects = boardMysterium.uniqueSuspects;
-            this.places = boardMysterium.uniquePlaces;
-            this.weapons = boardMysterium.uniqueWeapons;
             this.visions = boardMysterium.uniqueVisions;
+            this.mystery = [];    
         }
 
         dumpHand = () => {
             playerRed.hand.push(this.visions[0]);
             this.visions.shift();
-            console.log(this.visions);
+        }
+        
+        drawHand = () => {
+            while (this.visions.length < 7 ){
+                if (playerRed.hand.length >= visions.length - 7) break;
+                let randomVisions = Math.floor(Math.random() * visions.length);
+                if (!this.visions.includes(visions[randomVisions]) && !playerRed.hand.includes(visions[randomVisions])) {
+                    this.visions.push(visions[randomVisions]);
+                }
+            }  
             visionsHand.innerHTML = ``;
             for (let i = 0; i < this.visions.length; i += 1){
-                visionsHand.innerHTML += `<img src=${this.visions[i].image} />`
+                visionsHand.innerHTML += `<img src=${this.visions[i].image} class="vision-card" />`
             }
+        };
+        pickMystery = () => {
+            let randomSuspect = Math.floor(Math.random() * boardMysterium.uniqueSuspects.length);
+            let randomPlace = Math.floor(Math.random() * boardMysterium.uniquePlaces.length);
+            let randomWeapon = Math.floor(Math.random() * boardMysterium.uniqueWeapons.length);
+            let mysterySuspect = boardMysterium.uniqueSuspects[randomSuspect]
+            let mysteryPlace = boardMysterium.uniquePlaces[randomPlace]
+            let mysteryWeapon = boardMysterium.uniqueWeapons[randomWeapon]
+            this.mystery.push(mysterySuspect, mysteryPlace, mysteryWeapon);
+            console.log(this.mystery)
+            this.mystery.forEach((e) => {
+                redMystery.innerHTML += `<img src=${e.image} />` 
+            })
         }
+       
     }
 
     class Player {
@@ -88,7 +111,7 @@ window.addEventListener('load', () => {
         showHand = () => {
             playerHand.innerHTML = ``;
             for (let i = 0; i < this.hand.length; i += 1){
-                playerHand.innerHTML += `<img src=${this.hand[i].image} />`
+                playerHand.innerHTML += `<img src=${this.hand[i].image} class="vision-card" />`
             }
         }
     };
@@ -109,8 +132,21 @@ window.addEventListener('load', () => {
     dumper.addEventListener ('click', () => {
         ghost.dumpHand();
         playerRed.showHand();
+        ghost.drawHand();
+        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
+        for (let card of cardClicker){
+            card.addEventListener('click', selectCard);
+        }
+        ghost.pickMystery();
+        console.log(ghost.mystery)
     })
-   
+    
+    function selectCard (event) {
+        const target = event.target;
+        target.classList.toggle('active');
+       
+    }
+
 });
 
 
