@@ -65,12 +65,11 @@ window.addEventListener('load', () => {
     class Ghost {
         constructor(){
             this.visions = boardMysterium.uniqueVisions;
-            this.mystery = [];    
         }
 
         dumpHand = () => {
-            playerRed.hand.push(this.visions[0]);
-            this.visions.shift();
+            const cardsSelected = document.getElementsByClassName('active');
+    
         }
         
         drawHand = () => {
@@ -81,20 +80,29 @@ window.addEventListener('load', () => {
                     this.visions.push(visions[randomVisions]);
                 }
             }  
+        };
+        
+        updateHand = () => {
             visionsHand.innerHTML = ``;
             for (let i = 0; i < this.visions.length; i += 1){
                 visionsHand.innerHTML += `<img src=${this.visions[i].image} class="vision-card" />`
             }
-        };
+        }
+
+        removeFromHand = (index) => {
+            const cardRemoved = this.visions.splice(index, 1);
+            return cardRemoved;
+        }
+
+
         pickMystery = () => {
-            let randomSuspect = Math.floor(Math.random() * boardMysterium.uniqueSuspects.length);
-            let randomPlace = Math.floor(Math.random() * boardMysterium.uniquePlaces.length);
-            let randomWeapon = Math.floor(Math.random() * boardMysterium.uniqueWeapons.length);
-            let mysterySuspect = boardMysterium.uniqueSuspects[randomSuspect]
-            let mysteryPlace = boardMysterium.uniquePlaces[randomPlace]
-            let mysteryWeapon = boardMysterium.uniqueWeapons[randomWeapon]
+            const randomSuspect = Math.floor(Math.random() * boardMysterium.uniqueSuspects.length);
+            const randomPlace = Math.floor(Math.random() * boardMysterium.uniquePlaces.length);
+            const randomWeapon = Math.floor(Math.random() * boardMysterium.uniqueWeapons.length);
+            const mysterySuspect = boardMysterium.uniqueSuspects[randomSuspect]
+            const mysteryPlace = boardMysterium.uniquePlaces[randomPlace]
+            const mysteryWeapon = boardMysterium.uniqueWeapons[randomWeapon]
             this.mystery.push(mysterySuspect, mysteryPlace, mysteryWeapon);
-            console.log(this.mystery)
             this.mystery.forEach((e) => {
                 redMystery.innerHTML += `<img src=${e.image} />` 
             })
@@ -114,6 +122,10 @@ window.addEventListener('load', () => {
                 playerHand.innerHTML += `<img src=${this.hand[i].image} class="vision-card" />`
             }
         }
+
+        addToHand = (card) => {
+            this.hand.push(card)
+        }
     };
     
     
@@ -122,29 +134,58 @@ window.addEventListener('load', () => {
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
-        
-    })
-    
-    const ghost = new Ghost();
-    const playerRed = new Player('red');
-    
-    const dumper = document.querySelector('#dumper');
-    dumper.addEventListener ('click', () => {
-        ghost.dumpHand();
-        playerRed.showHand();
-        ghost.drawHand();
         const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
         for (let card of cardClicker){
             card.addEventListener('click', selectCard);
         }
-        ghost.pickMystery();
-        console.log(ghost.mystery)
+        
     })
+    
+    const playerRed = new Player('red');
+    const ghost = new Ghost();
+    
+    const dumper = document.querySelector('#dumper');
+    dumper.addEventListener ('click', () => {
+        ghost.dumpHand();
+        deliverCards();
+        // ghost.updateHand();
+        playerRed.showHand();
+        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
+        // console.log(cardClicker)
+        for (let card of cardClicker){
+            card.addEventListener('click', selectCard);
+        }
+    })
+    
+    const test1 = document.querySelector('#test1card');
+    test1.addEventListener ('click', () => {
+        // ghost.pickMystery();
+        ghost.drawHand();
+        ghost.updateHand();
+    })
+   
     
     function selectCard (event) {
         const target = event.target;
         target.classList.toggle('active');
        
+    }
+
+    function deliverCards() {
+        const cards = [...document.querySelectorAll('#ghost-hand .vision-card')]
+        for (let i = 0; i < cards.length ; i += 1){
+            // console.log(cards[i].className)
+            if (cards[i].className.includes('active')){
+                const card = ghost.removeFromHand(i);
+                for (let j = 0; j < card.length; j += 1){
+                    playerRed.addToHand(card[j]);
+                };
+            };
+        }
+        ghost.updateHand();
+        console.log(playerRed.hand)
+        playerRed.showHand();
+        
     }
 
 });
