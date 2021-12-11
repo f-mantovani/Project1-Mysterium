@@ -152,7 +152,6 @@ window.addEventListener('load', () => {
 
         takeAGuess = (index) => {
             const gSuspect = boardMysterium.uniqueSuspects[index];
-            console.log(gSuspect)
             return gSuspect;
         }
     };
@@ -207,13 +206,13 @@ window.addEventListener('load', () => {
 
     function chooseThis(){
         const suspectBtn = document.querySelectorAll('#suspect .choose-btn')
-        let test = 0;
+        let suspectNumber = 0;
         for (let i = 0; i < suspectBtn.length; i += 1){
             if (suspectBtn[i].className.includes('active')){
-                test = i
+                suspectNumber = i;
             }
         }
-        return test
+        return suspectNumber
         
     }
 
@@ -223,7 +222,7 @@ window.addEventListener('load', () => {
            card.addEventListener('click', selectCard);
         }
     }
-
+    
     function makeButtonsClickable(){
         const btnClicker = document.querySelectorAll('.choose-btn')
         for (let btn of btnClicker){
@@ -235,6 +234,8 @@ window.addEventListener('load', () => {
 
     function compareSuspect(){
         const suspectGuess = playerRed.takeAGuess(chooseThis());
+        const suspectBtn = document.querySelectorAll('#suspect .choose-btn')
+        suspectBtn[chooseThis()].classList.remove('active');
         if (suspectGuess === ghost.mystery[0]){
             console.log("winner")
             return youWon();
@@ -253,7 +254,7 @@ window.addEventListener('load', () => {
             wonScreen.classList.remove('hidden')
         }
     }
-
+    
 });
 
 
