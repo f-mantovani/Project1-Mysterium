@@ -1,17 +1,18 @@
 *{
     background-color: rgb(81, 99, 153);
     border: 2px solid red;
-    margin: 10px;
-    padding: 20px;
+    margin: 1px;
+    padding: 1px;
 }
 
 img {
-    width: 200px;
+    width: 180px;
 }
 
-#weapons > img {
-    height: 140px;
-    width: auto;
+#ghost-table{
+    display: flex;
+    justify-content: space-between;
+    height: 200px;
 }
 
 #ghost-hand > img {
@@ -21,14 +22,20 @@ img {
 
 #red-mystery {
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: row;
+    /* width: 30vw; */
+    /* float: right; */
 }
 
-#red-mystery > img {
+.suspect,
+.place {
+    height: 120px;
+    width: auto;  
+}
+
+.weapon{
     height: 140px;
-    width: 200px;
-    
+    width: auto;
 }
 
 #p-hand > img {
@@ -38,4 +45,55 @@ img {
 
 .active {
     border: 3px solid black;
+}
+
+#suspect{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.suspect-div{
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#places{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.place-div{
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#weapons{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.weapon-div{
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weapon-card{
+    height: 140px;
+    width: auto;
+}
+
+.choose-btn {
+    width: 60px;
+    height: 1rem;
+    text-align: center;
+}
+
+.hidden{
+    display: none;
 }

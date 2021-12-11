@@ -6,7 +6,15 @@ window.addEventListener('load', () => {
     const visionsHand = document.querySelector('#ghost-hand');
     const playerHand = document.querySelector('#p-hand')
     const redMystery = document.querySelector('#red-mystery')
-
+    const mainBoard = document.querySelector('#main-board')
+    const wonScreen = document.querySelector('#won')
+    
+    
+    const states = {
+        mainBoard: true,
+        wonScreen: false,
+    }
+    
     
     class Board {
         constructor(){
@@ -47,29 +55,42 @@ window.addEventListener('load', () => {
     
         populateBoard = () => {
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
-             suspectPlayerTable.innerHTML += `<img src=${this.uniqueSuspects[i].image} class="suspect-card" />`
+                suspectPlayerTable.innerHTML += ` <div class="suspect-div">
+                <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
+                <div class="choose-btn">Choose</div>
+                </div>
+                `
+                
             }
             for (let i = 0; i < this.uniquePlaces.length; i += 1){
-             placesPlayerTable.innerHTML += `<img src=${this.uniquePlaces[i].image} class="place-card" />`
+             placesPlayerTable.innerHTML += ` <div class="place-div">
+             <img src=${this.uniquePlaces[i].image} class="place-card" />
+             <div class="choose-btn">Choose</div>
+             </div>
+             `
             }
             for (let i = 0; i < this.uniqueWeapons.length; i += 1){
-             weaponsPlayerTable.innerHTML += `<img src=${this.uniqueWeapons[i].image} class="weapon-card" />`
+             weaponsPlayerTable.innerHTML += ` <div class="weapon-div">
+                <img src=${this.uniqueWeapons[i].image} class="weapon-card" />
+                <div class="choose-btn">Choose</div>
+                </div>
+                `
             }
             for (let i = 0; i < this.uniqueVisions.length; i += 1){
              visionsHand.innerHTML += `<img src=${this.uniqueVisions[i].image} class="vision-card" />`
             }
          }
+        
+        nextTurn = () => {
+            this.turns += 1;
+        }
     }
     
     
     class Ghost {
         constructor(){
             this.visions = boardMysterium.uniqueVisions;
-        }
-
-        dumpHand = () => {
-            const cardsSelected = document.getElementsByClassName('active');
-    
+            this.mystery = [];
         }
         
         drawHand = () => {
@@ -79,7 +100,8 @@ window.addEventListener('load', () => {
                 if (!this.visions.includes(visions[randomVisions]) && !playerRed.hand.includes(visions[randomVisions])) {
                     this.visions.push(visions[randomVisions]);
                 }
-            }  
+            } 
+             
         };
         
         updateHand = () => {
@@ -87,6 +109,7 @@ window.addEventListener('load', () => {
             for (let i = 0; i < this.visions.length; i += 1){
                 visionsHand.innerHTML += `<img src=${this.visions[i].image} class="vision-card" />`
             }
+              
         }
 
         removeFromHand = (index) => {
@@ -104,7 +127,7 @@ window.addEventListener('load', () => {
             const mysteryWeapon = boardMysterium.uniqueWeapons[randomWeapon]
             this.mystery.push(mysterySuspect, mysteryPlace, mysteryWeapon);
             this.mystery.forEach((e) => {
-                redMystery.innerHTML += `<img src=${e.image} />` 
+                redMystery.innerHTML += `<img src=${e.image} class=${e.class} />` 
             })
         }
        
@@ -126,6 +149,12 @@ window.addEventListener('load', () => {
         addToHand = (card) => {
             this.hand.push(card)
         }
+
+        takeAGuess = (index) => {
+            const gSuspect = boardMysterium.uniqueSuspects[index];
+            console.log(gSuspect)
+            return gSuspect;
+        }
     };
     
     
@@ -134,11 +163,8 @@ window.addEventListener('load', () => {
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
-        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
-        for (let card of cardClicker){
-            card.addEventListener('click', selectCard);
-        }
-        
+        makeButtonsClickable();
+        makeCardsClickable();   
     })
     
     const playerRed = new Player('red');
@@ -146,22 +172,16 @@ window.addEventListener('load', () => {
     
     const dumper = document.querySelector('#dumper');
     dumper.addEventListener ('click', () => {
-        ghost.dumpHand();
         deliverCards();
-        // ghost.updateHand();
-        playerRed.showHand();
-        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
-        // console.log(cardClicker)
-        for (let card of cardClicker){
-            card.addEventListener('click', selectCard);
-        }
+        ghost.drawHand();
+        ghost.updateHand();
+        makeCardsClickable();
     })
     
     const test1 = document.querySelector('#test1card');
     test1.addEventListener ('click', () => {
-        // ghost.pickMystery();
-        ghost.drawHand();
-        ghost.updateHand();
+        ghost.pickMystery();
+        
     })
    
     
@@ -172,9 +192,8 @@ window.addEventListener('load', () => {
     }
 
     function deliverCards() {
-        const cards = [...document.querySelectorAll('#ghost-hand .vision-card')]
-        for (let i = 0; i < cards.length ; i += 1){
-            // console.log(cards[i].className)
+        const cards = document.querySelectorAll('#ghost-hand .vision-card')
+        for (let i = cards.length - 1; i >= 0 ; i -= 1){
             if (cards[i].className.includes('active')){
                 const card = ghost.removeFromHand(i);
                 for (let j = 0; j < card.length; j += 1){
@@ -183,9 +202,55 @@ window.addEventListener('load', () => {
             };
         }
         ghost.updateHand();
-        console.log(playerRed.hand)
         playerRed.showHand();
+    }
+
+    function chooseThis(){
+        const suspectBtn = document.querySelectorAll('#suspect .choose-btn')
+        let test = 0;
+        for (let i = 0; i < suspectBtn.length; i += 1){
+            if (suspectBtn[i].className.includes('active')){
+                test = i
+            }
+        }
+        return test
         
+    }
+
+    function makeCardsClickable() {
+        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
+        for (let card of cardClicker){
+           card.addEventListener('click', selectCard);
+        }
+    }
+
+    function makeButtonsClickable(){
+        const btnClicker = document.querySelectorAll('.choose-btn')
+        for (let btn of btnClicker){
+            btn.addEventListener('click', selectCard);
+            btn.addEventListener('click', chooseThis);
+            btn.addEventListener('click', compareSuspect);
+        }
+    }
+
+    function compareSuspect(){
+        const suspectGuess = playerRed.takeAGuess(chooseThis());
+        if (suspectGuess === ghost.mystery[0]){
+            console.log("winner")
+            return youWon();
+        }
+        
+    }
+
+    function youWon(){
+        states.mainBoard = !states.mainBoard;
+        states.wonScreen = !states.wonScreen;
+        if (!states.mainBoard){
+            mainBoard.classList.add('hidden')
+        }
+        if (states.wonScreen){
+            wonScreen.classList.remove('hidden')
+        }
     }
 
 });

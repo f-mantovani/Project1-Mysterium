@@ -8,25 +8,29 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-      <section id="welcome-page">
+    <div id="main-board"> 
+     <section id="welcome-page">
           Welcome
           <input type="button" id="test-button" value="Helper" />
           <input type="button" id="dumper" value="Pass cards to player" />
           <input type="button" id="test1card" value="Draw Hand" />
-        </section>
-    <section id="ghost-table">
+      </section>
+      <section id="ghost-table">
       <div id="red-mystery"></div>
       <div id="ghost-hand"></div>
 
       <!-- <input type="button" value="Click Here Ghost" /> -->
-    </section>
-    <section id="players-table">
+      </section>
+      <section id="players-table">
         <!-- <div></div> -->
         <div id="p-hand"></div>
         <div id="suspect"></div>
         <div id="places"></div>
         <div id="weapons"></div>
     </section>
+    </div>
+    <div id="won" class="hidden">You won</div>
+    <div id="lose" class="hidden">You Lose</div>
     <section id="transition">Transition</section>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/script.js"></script>
