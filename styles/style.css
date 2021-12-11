@@ -90,10 +90,10 @@ img {
 
 .choose-btn {
     width: 60px;
-    height: 1rem;
+    height: 1.5rem;
     text-align: center;
 }
 
 .hidden{
-    display: none;
+    display: none !important;
 }

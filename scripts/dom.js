@@ -1,28 +1,37 @@
 window.addEventListener('load', () => {
 
+
+    // Variáveis de DOM
+    const ghostTable = document.querySelector('#ghost-table')
+    const visionsHand = document.querySelector('#ghost-hand');
+    const redMystery = document.querySelector('#red-mystery')
+    const playerTable = document.querySelector('#players-table')
     const suspectPlayerTable = document.querySelector('#suspect');
     const placesPlayerTable = document.querySelector('#places');
     const weaponsPlayerTable = document.querySelector('#weapons');
-    const visionsHand = document.querySelector('#ghost-hand');
     const playerHand = document.querySelector('#p-hand')
-    const redMystery = document.querySelector('#red-mystery')
+    const turnsCounter = document.querySelectorAll('.turns')
     const mainBoard = document.querySelector('#main-board')
     const wonScreen = document.querySelector('#won')
+    const loseScreen = document.querySelector('#lose')
     
-    
+    // States das mesas de jogo
     const states = {
         mainBoard: true,
         wonScreen: false,
+        loseScreen: false,
+        ghostTable: false,
+        playerTable: true,
     }
     
-    
+    // Construtor do Jogo
     class Board {
         constructor(){
             this.uniqueSuspects = [];
             this.uniquePlaces = [];
             this.uniqueWeapons = [];
             this.uniqueVisions = [];
-            this.turns = 0;
+            this.turn = 0;
         }
     
         randomBoard = () => {
@@ -57,7 +66,7 @@ window.addEventListener('load', () => {
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
                 suspectPlayerTable.innerHTML += ` <div class="suspect-div">
                 <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
-                <div class="choose-btn">Choose</div>
+                <input type="button" class="choose-suspect" value="Choose"></input>
                 </div>
                 `
                 
@@ -65,27 +74,32 @@ window.addEventListener('load', () => {
             for (let i = 0; i < this.uniquePlaces.length; i += 1){
              placesPlayerTable.innerHTML += ` <div class="place-div">
              <img src=${this.uniquePlaces[i].image} class="place-card" />
-             <div class="choose-btn">Choose</div>
+             <input type="button" class="choose-place" value="Choose"></input>
              </div>
              `
             }
             for (let i = 0; i < this.uniqueWeapons.length; i += 1){
              weaponsPlayerTable.innerHTML += ` <div class="weapon-div">
                 <img src=${this.uniqueWeapons[i].image} class="weapon-card" />
-                <div class="choose-btn">Choose</div>
+                <input type="button" class="choose-weapon" value="Choose"></input>
                 </div>
                 `
             }
             for (let i = 0; i < this.uniqueVisions.length; i += 1){
              visionsHand.innerHTML += `<img src=${this.uniqueVisions[i].image} class="vision-card" />`
             }
+
+            for (let i = 0; i < turnsCounter.length; i += 1){
+                turnsCounter[i].innerHTML = `Round: ${boardMysterium.turn}`
+            }
          }
         
         nextTurn = () => {
-            this.turns += 1;
+            this.turn += 1;
         }
     }
     
+    // Construtor do Fantasma
     
     class Ghost {
         constructor(){
@@ -133,6 +147,7 @@ window.addEventListener('load', () => {
        
     }
 
+    // Construtor do Jogador
     class Player {
         constructor(color){
             this.player = color;
@@ -159,10 +174,12 @@ window.addEventListener('load', () => {
     
     const boardMysterium = new Board();
     
+    // Botões para teste rápido - tudo vai sumir depois
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
-        makeButtonsClickable();
+        changeScreen();
+        chooseSuspectAction();
         makeCardsClickable();   
     })
     
@@ -182,8 +199,19 @@ window.addEventListener('load', () => {
         ghost.pickMystery();
         
     })
-   
+
+    const turnPlus1 = document.querySelector('#turn');
+    turnPlus1.addEventListener ('click', () => {
+        updateTurn();
+        
+    })
     
+    const changeScreens = document.querySelector('#screen-test');
+    changeScreens.addEventListener ('click', () => {
+        changeScreen();   
+    })
+    
+    // Funções de ação
     function selectCard (event) {
         const target = event.target;
         target.classList.toggle('active');
@@ -205,7 +233,7 @@ window.addEventListener('load', () => {
     }
 
     function chooseThis(){
-        const suspectBtn = document.querySelectorAll('#suspect .choose-btn')
+        const suspectBtn = document.querySelectorAll('#suspect .choose-suspect')
         let suspectNumber = 0;
         for (let i = 0; i < suspectBtn.length; i += 1){
             if (suspectBtn[i].className.includes('active')){
@@ -223,8 +251,8 @@ window.addEventListener('load', () => {
         }
     }
     
-    function makeButtonsClickable(){
-        const btnClicker = document.querySelectorAll('.choose-btn')
+    function chooseSuspectAction(){
+        const btnClicker = document.querySelectorAll('.choose-suspect')
         for (let btn of btnClicker){
             btn.addEventListener('click', selectCard);
             btn.addEventListener('click', chooseThis);
@@ -234,7 +262,7 @@ window.addEventListener('load', () => {
 
     function compareSuspect(){
         const suspectGuess = playerRed.takeAGuess(chooseThis());
-        const suspectBtn = document.querySelectorAll('#suspect .choose-btn')
+        const suspectBtn = document.querySelectorAll('#suspect .choose-suspect')
         suspectBtn[chooseThis()].classList.remove('active');
         if (suspectGuess === ghost.mystery[0]){
             console.log("winner")
@@ -254,6 +282,46 @@ window.addEventListener('load', () => {
             wonScreen.classList.remove('hidden')
         }
     }
+
+    function roundsUp(){
+        if (boardMysterium.turn > 7) return youLose()
+    }
+
+    function youLose(){
+        states.mainBoard = !states.mainBoard;
+        states.loseScreen = !states.loseScreen;
+        if (!states.mainBoard){
+            mainBoard.classList.add('hidden')
+        }
+        if (states.loseScreen){
+            loseScreen.classList.remove('hidden')
+        }
+    }
+
+    function updateTurn(){
+        boardMysterium.nextTurn();
+        turnsCounter.innerHTML = "";
+        for (let i = 0; i < turnsCounter.length; i += 1){
+            turnsCounter[i].innerHTML = `Round: ${boardMysterium.turn}`
+        }
+        roundsUp();
+        
+    }
+
+    function changeScreen(){
+        states.ghostTable = !states.ghostTable; 
+        states.playerTable = !states.playerTable;
+        if (!states.playerTable){
+            playerTable.classList.add('hidden')
+        } else if (states.playerTable){
+            playerTable.classList.remove('hidden')
+        };
+        if (states.ghostTable){
+            ghostTable.classList.remove('hidden')
+        } else if (!states.ghostTable){
+            ghostTable.classList.add('hidden')
+        };
+    };
     
 });
 

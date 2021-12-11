@@ -14,15 +14,18 @@
           <input type="button" id="test-button" value="Helper" />
           <input type="button" id="dumper" value="Pass cards to player" />
           <input type="button" id="test1card" value="Draw Hand" />
+          <input type="button" id="turn" value="+1 turn" />
+          <input type="button" id="screen-test" value="Change Screen" />
       </section>
       <section id="ghost-table">
-      <div id="red-mystery"></div>
-      <div id="ghost-hand"></div>
+        <div class="turns"></div>
+        <div id="red-mystery"></div>
+        <div id="ghost-hand"></div>
 
       <!-- <input type="button" value="Click Here Ghost" /> -->
       </section>
       <section id="players-table">
-        <!-- <div></div> -->
+        <div class="turns"></div>
         <div id="p-hand"></div>
         <div id="suspect"></div>
         <div id="places"></div>
@@ -31,7 +34,6 @@
     </div>
     <div id="won" class="hidden">You won</div>
     <div id="lose" class="hidden">You Lose</div>
-    <section id="transition">Transition</section>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/dom.js"></script>
