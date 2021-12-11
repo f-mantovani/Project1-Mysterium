@@ -239,6 +239,7 @@ window.addEventListener('load', () => {
             console.log("winner")
             return youWon();
         }
+        return window.alert('you guessed wrong')
         
     }
 
