@@ -1,23 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap');
+
 *{
     background-color: rgb(81, 99, 153);
-    /* border: 2px solid red; */
+    /* border: 1px solid red; */
     margin: 0px;
     padding: 1px;
 }
+
+body{ 
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #041B2F;
+}
+
+h1{
+    font-family: 'Cinzel', serif;
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 86px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #041B2F;
+}
+
+h2{
+    font-family: 'Cinzel', serif;
+    font-family: Cinzel;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #041B2F;
+}
+
 
 img {
     width: 180px;
 }
 
 #ghost-table{
+   display: flex;
+   flex-direction: column;
+}
+
+.ghost-div{
     display: flex;
     justify-content: space-between;
-    height: 200px;
+    
+}
+
+#ghost-hand{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 #ghost-hand > img {
     width: 70px;
     height: auto;
+    
+}
+
+#ghost-hand img:hover{
+    width: 140px;
+    height: auto;
+}
+
+.turns{
+    height: 25px;
 }
 
 #red-mystery {
@@ -38,8 +96,19 @@ img {
     width: auto;
 }
 
+#p-hand{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
 #p-hand > img {
     width: 70px;
+    height: auto;
+}
+
+#p-hand img:hover{
+    width: 140px;
     height: auto;
 }
 

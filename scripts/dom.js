@@ -1,6 +1,5 @@
 window.addEventListener('load', () => {
 
-
     // Variáveis de DOM
     const ghostTable = document.querySelector('#ghost-table')
     const visionsHand = document.querySelector('#ghost-hand');
@@ -31,7 +30,7 @@ window.addEventListener('load', () => {
             this.uniquePlaces = [];
             this.uniqueWeapons = [];
             this.uniqueVisions = [];
-            this.turn = 0;
+            this.turn = 1;
         }
     
         randomBoard = () => {
@@ -66,7 +65,7 @@ window.addEventListener('load', () => {
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
                 suspectPlayerTable.innerHTML += ` <div class="suspect-div">
                 <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
-                <input type="button" class="choose-suspect" value="Choose"></input>
+                <input type="button" class="choose-suspect choose" value="Choose"></input>
                 </div>
                 `
                 
@@ -74,14 +73,14 @@ window.addEventListener('load', () => {
             for (let i = 0; i < this.uniquePlaces.length; i += 1){
              placesPlayerTable.innerHTML += ` <div class="place-div">
              <img src=${this.uniquePlaces[i].image} class="place-card" />
-             <input type="button" class="choose-place" value="Choose"></input>
+             <input type="button" class="choose-place choose" value="Choose"></input>
              </div>
              `
             }
             for (let i = 0; i < this.uniqueWeapons.length; i += 1){
              weaponsPlayerTable.innerHTML += ` <div class="weapon-div">
                 <img src=${this.uniqueWeapons[i].image} class="weapon-card" />
-                <input type="button" class="choose-weapon" value="Choose"></input>
+                <input type="button" class="choose-weapon choose" value="Choose"></input>
                 </div>
                 `
             }
@@ -151,11 +150,13 @@ window.addEventListener('load', () => {
     class Player {
         constructor(color){
             this.player = color;
+            this.playerCorrectGuess = [];
             this.hand = [];
         }
 
         showHand = () => {
             playerHand.innerHTML = ``;
+            
             for (let i = 0; i < this.hand.length; i += 1){
                 playerHand.innerHTML += `<img src=${this.hand[i].image} class="vision-card" />`
             }
@@ -165,12 +166,25 @@ window.addEventListener('load', () => {
             this.hand.push(card)
         }
 
-        takeAGuess = (index) => {
-            const gSuspect = boardMysterium.uniqueSuspects[index];
-            return gSuspect;
+        cleanHand = () => {
+            while(this.hand.length){
+                this.hand.pop()
+            }
         }
+
+        takeAGuess = (index) => {
+            if (playerRed.playerCorrectGuess.length === 0){
+                const gSuspect = boardMysterium.uniqueSuspects[index];
+                return gSuspect;
+            } else if (playerRed.playerCorrectGuess.length === 1) {
+                const pSuspect = boardMysterium.uniquePlaces[index];
+                return pSuspect;
+            } else if (playerRed.playerCorrectGuess.length === 2){
+                const wSuspect = boardMysterium.uniqueWeapons[index];
+                return wSuspect;
+            }   
+        };
     };
-    
     
     const boardMysterium = new Board();
     
@@ -178,8 +192,12 @@ window.addEventListener('load', () => {
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
+        updatePlayersTable();
         changeScreen();
+        ghost.pickMystery();
         chooseSuspectAction();
+        choosePlacesAction();
+        chooseWeaponsAction();
         makeCardsClickable();   
     })
     
@@ -194,9 +212,9 @@ window.addEventListener('load', () => {
         makeCardsClickable();
     })
     
+    // Draw Hand no momento
     const test1 = document.querySelector('#test1card');
     test1.addEventListener ('click', () => {
-        ghost.pickMystery();
         
     })
 
@@ -221,6 +239,9 @@ window.addEventListener('load', () => {
     function deliverCards() {
         const cards = document.querySelectorAll('#ghost-hand .vision-card')
         for (let i = cards.length - 1; i >= 0 ; i -= 1){
+            if (!cards.length){
+                return window.alert('You must pass a vision to the player')
+            }
             if (cards[i].className.includes('active')){
                 const card = ghost.removeFromHand(i);
                 for (let j = 0; j < card.length; j += 1){
@@ -230,17 +251,18 @@ window.addEventListener('load', () => {
         }
         ghost.updateHand();
         playerRed.showHand();
+        changeScreen();
     }
 
     function chooseThis(){
-        const suspectBtn = document.querySelectorAll('#suspect .choose-suspect')
-        let suspectNumber = 0;
-        for (let i = 0; i < suspectBtn.length; i += 1){
-            if (suspectBtn[i].className.includes('active')){
-                suspectNumber = i;
+        const indexBtn = document.querySelectorAll('.choose')
+        let indexNumber = 0;
+        for (let i = 0; i < indexBtn.length; i += 1){
+            if (indexBtn[i].className.includes('active')){
+                indexNumber = i;
             }
         }
-        return suspectNumber
+        return indexNumber - (6 * playerRed.playerCorrectGuess.length)
         
     }
 
@@ -252,11 +274,35 @@ window.addEventListener('load', () => {
     }
     
     function chooseSuspectAction(){
-        const btnClicker = document.querySelectorAll('.choose-suspect')
+        const btnClicker = document.querySelectorAll('.choose-suspect');
         for (let btn of btnClicker){
             btn.addEventListener('click', selectCard);
             btn.addEventListener('click', chooseThis);
             btn.addEventListener('click', compareSuspect);
+            btn.addEventListener('click', roundsUp);
+            btn.addEventListener('click', changeScreen);
+        }
+    }
+
+    function choosePlacesAction(){
+        const btnClicker = document.querySelectorAll('#places .choose-place');
+        for (let btn of btnClicker){
+            btn.addEventListener('click', selectCard);
+            btn.addEventListener('click', chooseThis);
+            btn.addEventListener('click', comparePlaces);
+            btn.addEventListener('click', roundsUp);
+            btn.addEventListener('click', changeScreen);
+        }
+    }
+
+    function chooseWeaponsAction(){
+        const btnClicker = document.querySelectorAll('#weapons .choose-weapon')
+        for (let btn of btnClicker){
+            btn.addEventListener('click', selectCard);
+            btn.addEventListener('click', chooseThis);
+            btn.addEventListener('click', compareWeapon);
+            btn.addEventListener('click', roundsUp);
+            btn.addEventListener('click', changeScreen);
         }
     }
 
@@ -265,11 +311,41 @@ window.addEventListener('load', () => {
         const suspectBtn = document.querySelectorAll('#suspect .choose-suspect')
         suspectBtn[chooseThis()].classList.remove('active');
         if (suspectGuess === ghost.mystery[0]){
-            console.log("winner")
+            playerRed.playerCorrectGuess.push(ghost.mystery[0])
+            updateTurn();
+            playerRed.cleanHand();
+            return updatePlayersTable();
+        }
+        updateTurn();
+        return window.alert('you guessed wrong');   
+    }
+
+    function comparePlaces(){
+        const placesGuess = playerRed.takeAGuess(chooseThis());
+        const placesBtn = document.querySelectorAll('#places .choose-place')
+        placesBtn[chooseThis()].classList.remove('active');
+        if (placesGuess === ghost.mystery[1]){
+            playerRed.playerCorrectGuess.push(ghost.mystery[1])
+            updateTurn();
+            playerRed.cleanHand();
+            return updatePlayersTable();
+        }
+        updateTurn();
+        return window.alert('you guessed wrong')
+    }
+
+    function compareWeapon(){
+        const weaponGuess = playerRed.takeAGuess(chooseThis());
+        const weaponBtn = document.querySelectorAll('#weapons .choose-weapon')
+        weaponBtn[chooseThis()].classList.remove('active');
+        if (weaponGuess === ghost.mystery[2]){
+            playerRed.playerCorrectGuess.push(ghost.mystery[2]);
+            updateTurn();
+            playerRed.cleanHand();
             return youWon();
         }
+        updateTurn();
         return window.alert('you guessed wrong')
-        
     }
 
     function youWon(){
@@ -322,12 +398,24 @@ window.addEventListener('load', () => {
             ghostTable.classList.add('hidden')
         };
     };
+
+    function updatePlayersTable(){
+        if (playerRed.playerCorrectGuess.length === 0){
+            placesPlayerTable.classList.add('hidden')
+            weaponsPlayerTable.classList.add('hidden')
+        } else if (playerRed.playerCorrectGuess.length === 1){
+            placesPlayerTable.classList.remove('hidden')
+            weaponsPlayerTable.classList.add('hidden')
+            suspectPlayerTable.classList.add('hidden')
+        } else if (playerRed.playerCorrectGuess.length === 2){
+            suspectPlayerTable.classList.add('hidden')
+            placesPlayerTable.classList.add('hidden')
+            weaponsPlayerTable.classList.remove('hidden')
+        }
+    }
     
 });
 
 
-
-
-
-
+   
 
