@@ -146,3 +146,12 @@ const visions = [
     {id: 81, image:'./Mysterium/Sonhos/pic2860705.jpg'},
     {id: 82, image:'./Mysterium/Sonhos/pic2860706.jpg'},
 ];
+
+const players = [
+    {id: "blue", image:"./Mysterium/Jogadores/pic2799330.png"},
+    {id: "white", image:"./Mysterium/Jogadores/pic2799331.png"},
+    {id: "black", image:"./Mysterium/Jogadores/pic2799333.png"},
+    {id: "yeallow", image:"./Mysterium/Jogadores/pic2799334.png"},
+    {id: "violet", image:"./Mysterium/Jogadores/pic2799335.png"},
+    {id: "red", image:"./Mysterium/Jogadores/pic2799336.png"},
+];

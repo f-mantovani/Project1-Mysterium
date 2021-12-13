@@ -57,6 +57,12 @@ img {
     
 }
 
+#ghost-visions-organizer{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
 #ghost-hand{
     display: flex; 
     justify-content: flex-start;
@@ -81,8 +87,59 @@ img {
 #red-mystery {
     display: flex;
     flex-direction: row;
-    /* width: 30vw; */
-    /* float: right; */
+}
+
+#red-mystery > .player-card {
+    width: auto;
+    height: 120px;
+}
+
+#table-overview{
+    display: flex;
+    flex-direction: column;
+}
+
+#table-overview > div > img {
+    width:100px;
+    height: auto;
+}
+
+#table-overview > div > img:hover {
+    width:320px;
+    height: auto;
+}
+
+#table-overview > div > .weapon-card {
+    width:auto;
+    height: 80px;
+}
+
+#table-overview > div > .weapon-card:hover {
+    width:auto;
+    height: 240px;
+}
+
+#suspect-table{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: center;
+}
+
+#places-table{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+#weapons-table{
+    display: flex; 
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+span{
+    width: 80px;
 }
 
 .suspect,
@@ -168,6 +225,8 @@ img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
+    margin-top: 40vh;
 }
 
 .hidden{

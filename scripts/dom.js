@@ -1,19 +1,25 @@
-// window.addEventListener('load', () => {
+window.addEventListener('load', () => {
 
     // Variáveis de DOM
-    const ghostTable = document.querySelector('#ghost-table')
+    const welcomePage = document.querySelector('#welcome-page')
+    const ghostTable = document.querySelector('#ghost-table');
     const visionsHand = document.querySelector('#ghost-hand');
-    const redMystery = document.querySelector('#red-mystery')
-    const playerTable = document.querySelector('#players-table')
+    const guessing = document.querySelector('.player-guess')
+    const redMystery = document.querySelector('#red-mystery');
+    const suspectOverview = document.querySelector('#suspect-table');
+    const placesOverview = document.querySelector('#places-table');
+    const weaponsOverview = document.querySelector('#weapons-table');
+    const playerTable = document.querySelector('#players-table');
+    const playerPic = document.querySelector('.player-pic')
     const suspectPlayerTable = document.querySelector('#suspect');
     const placesPlayerTable = document.querySelector('#places');
     const weaponsPlayerTable = document.querySelector('#weapons');
-    const playerHand = document.querySelector('#p-hand')
-    const turnsCounter = document.querySelectorAll('.turns')
-    const ghostTransition = document.querySelector('#transition')
-    const mainBoard = document.querySelector('#main-board')
-    const wonScreen = document.querySelector('#won')
-    const loseScreen = document.querySelector('#lose')
+    const playerHand = document.querySelector('#p-hand');
+    const turnsCounter = document.querySelectorAll('.turns');
+    const ghostTransition = document.querySelector('#transition');
+    const mainBoard = document.querySelector('#main-board');
+    const wonScreen = document.querySelector('#won');
+    const loseScreen = document.querySelector('#lose');
 
     
     // States das mesas de jogo
@@ -65,27 +71,34 @@
         }
     
         populateBoard = () => {
+            playerPic.innerHTML += `<img src =${players[5].image} class="player-card" />`;
+            suspectOverview.innerHTML += `<span>Suspects</span>`;
+            placesOverview.innerHTML += `<span>Places</span>`;
+            weaponsOverview.innerHTML += `<span>Weapons</span>`;
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
                 suspectPlayerTable.innerHTML += ` <div class="suspect-div">
                 <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
                 <input type="button" class="choose-suspect choose" value="Choose"></input>
                 </div>
                 `
+                suspectOverview.innerHTML += `<img src=${this.uniqueSuspects[i].image} class="suspect-card" />`
                 
             }
             for (let i = 0; i < this.uniquePlaces.length; i += 1){
-             placesPlayerTable.innerHTML += ` <div class="place-div">
-             <img src=${this.uniquePlaces[i].image} class="place-card" />
-             <input type="button" class="choose-place choose" value="Choose"></input>
-             </div>
-             `
+                placesPlayerTable.innerHTML += ` <div class="place-div">
+                <img src=${this.uniquePlaces[i].image} class="place-card" />
+                <input type="button" class="choose-place choose" value="Choose"></input>
+                </div>
+                `
+                placesOverview.innerHTML += `<img src=${this.uniquePlaces[i].image} />`
             }
             for (let i = 0; i < this.uniqueWeapons.length; i += 1){
-             weaponsPlayerTable.innerHTML += ` <div class="weapon-div">
+                weaponsPlayerTable.innerHTML += ` <div class="weapon-div">
                 <img src=${this.uniqueWeapons[i].image} class="weapon-card" />
                 <input type="button" class="choose-weapon choose" value="Choose"></input>
                 </div>
                 `
+                weaponsOverview.innerHTML += `<img src=${this.uniqueWeapons[i].image} class="weapon-card" />`
             }
             for (let i = 0; i < this.uniqueVisions.length; i += 1){
              visionsHand.innerHTML += `<img src=${this.uniqueVisions[i].image} class="vision-card" />`
@@ -107,6 +120,7 @@
         constructor(){
             this.visions = boardMysterium.uniqueVisions;
             this.mystery = [];
+            this.crows = 3;
         }
         
         drawHand = () => {
@@ -133,6 +147,12 @@
             return cardRemoved;
         }
 
+        callCrow = () => {
+            while(this.visions.length){
+                this.visions.pop()
+            };
+        }
+
 
         pickMystery = () => {
             const randomSuspect = Math.floor(Math.random() * boardMysterium.uniqueSuspects.length);
@@ -142,6 +162,7 @@
             const mysteryPlace = boardMysterium.uniquePlaces[randomPlace]
             const mysteryWeapon = boardMysterium.uniqueWeapons[randomWeapon]
             this.mystery.push(mysterySuspect, mysteryPlace, mysteryWeapon);
+            redMystery.innerHTML += `<img src =${players[5].image} class="player-card" />`
             this.mystery.forEach((e) => {
                 redMystery.innerHTML += `<img src=${e.image} class=${e.class} />` 
             })
@@ -195,9 +216,11 @@
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
+        welcomePage.classList.add('hidden')
         updatePlayersTable();
         changeScreen();
         ghost.pickMystery();
+        updateMystery();
         chooseSuspectAction();
         choosePlacesAction();
         chooseWeaponsAction();
@@ -216,10 +239,10 @@
         makeCardsClickable();
     })
     
-    // Draw Hand no momento
+   // Draw Hand no momento
     // const test1 = document.querySelector('#test1card');
     // test1.addEventListener ('click', () => {
-        
+    //     useCrow();
     // })
 
     // const turnPlus1 = document.querySelector('#turn');
@@ -259,6 +282,27 @@
         changeScreen();
     }
 
+    function useCrow(){
+        ghost.callCrow();
+        ghost.drawHand();
+        ghost.updateHand();
+    }
+
+    function updateMystery(){
+        if(playerRed.playerCorrectGuess.length === 0){
+            guessing.innerHTML = "Player is guessing: Suspect"
+        }
+        if(playerRed.playerCorrectGuess.length === 1){
+            guessing.innerHTML = "";
+            guessing.innerHTML = "Player is guessing: Place"
+        }
+        if(playerRed.playerCorrectGuess.length === 2){
+            guessing.innerHTML = "";
+            guessing.innerHTML = "Player is guessing: Weapon";
+
+        }
+    }
+
     
     function makeCardsClickable() {
         const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
@@ -293,9 +337,10 @@
             btn.addEventListener('click', compareSuspect);
             btn.addEventListener('click', roundsUp);
             btn.addEventListener('click', transitionScreenAppears);
+            btn.addEventListener('click', updateMystery);
         }
     }
-
+    
     function choosePlacesAction(){
         const btnClicker = document.querySelectorAll('#places .choose-place');
         for (let btn of btnClicker){
@@ -304,9 +349,10 @@
             btn.addEventListener('click', comparePlaces);
             btn.addEventListener('click', roundsUp);
             btn.addEventListener('click', transitionScreenAppears);
+            btn.addEventListener('click', updateMystery);
         }
     }
-
+    
     function chooseWeaponsAction(){
         const btnClicker = document.querySelectorAll('#weapons .choose-weapon')
         for (let btn of btnClicker){
@@ -315,6 +361,7 @@
             btn.addEventListener('click', compareWeapon);
             btn.addEventListener('click', roundsUp);
             btn.addEventListener('click', transitionScreenAppears);
+            btn.addEventListener('click', updateMystery);
         }
     }
 
@@ -360,32 +407,7 @@
         return window.alert('you guessed wrong')
     }
 
-    function youWon(){
-        states.mainBoard = !states.mainBoard;
-        states.wonScreen = !states.wonScreen;
-        if (!states.mainBoard){
-            mainBoard.classList.add('hidden')
-        }
-        if (states.wonScreen){
-            wonScreen.classList.remove('hidden')
-        }
-    }
-
-    function roundsUp(){
-        if (boardMysterium.turn > 7) return youLose()
-    }
-
-    function youLose(){
-        states.mainBoard = !states.mainBoard;
-        states.loseScreen = !states.loseScreen;
-        if (!states.mainBoard){
-            mainBoard.classList.add('hidden')
-        }
-        if (states.loseScreen){
-            loseScreen.classList.remove('hidden')
-        }
-    }
-
+    
     function updateTurn(){
         boardMysterium.nextTurn();
         turnsCounter.innerHTML = "";
@@ -436,8 +458,30 @@
         }
     }
     
-// });
+    function youWon(){
+        states.mainBoard = !states.mainBoard;
+        states.wonScreen = !states.wonScreen;
+        if (!states.mainBoard){
+            mainBoard.classList.add('hidden')
+        }
+        if (states.wonScreen){
+            wonScreen.classList.remove('hidden')
+        }
+    }
+    
+    function roundsUp(){
+        if (boardMysterium.turn > 7) return youLose()
+    }
+    
+    function youLose(){
+        states.mainBoard = !states.mainBoard;
+        states.loseScreen = !states.loseScreen;
+        if (!states.mainBoard){
+            mainBoard.classList.add('hidden')
+        }
+        if (states.loseScreen){
+            loseScreen.classList.remove('hidden')
+        }
+    }
 
-
-   
-
+});
