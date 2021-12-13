@@ -3,7 +3,7 @@
 *{
     background-color: rgb(81, 99, 153);
     /* border: 1px solid red; */
-    margin: 0px;
+    margin: 1px;
     padding: 1px;
 }
 
@@ -113,7 +113,7 @@ img {
 }
 
 .active {
-    border: 3px solid black;
+    border: 2px solid black;
 }
 
 #suspect{
@@ -161,6 +161,13 @@ img {
     width: 60px;
     height: 1.5rem;
     text-align: center;
+}
+
+#transition{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden{

@@ -1,4 +1,4 @@
-window.addEventListener('load', () => {
+// window.addEventListener('load', () => {
 
     // Variáveis de DOM
     const ghostTable = document.querySelector('#ghost-table')
@@ -10,9 +10,11 @@ window.addEventListener('load', () => {
     const weaponsPlayerTable = document.querySelector('#weapons');
     const playerHand = document.querySelector('#p-hand')
     const turnsCounter = document.querySelectorAll('.turns')
+    const ghostTransition = document.querySelector('#transition')
     const mainBoard = document.querySelector('#main-board')
     const wonScreen = document.querySelector('#won')
     const loseScreen = document.querySelector('#lose')
+
     
     // States das mesas de jogo
     const states = {
@@ -21,6 +23,7 @@ window.addEventListener('load', () => {
         loseScreen: false,
         ghostTable: false,
         playerTable: true,
+        ghostTransition: false,
     }
     
     // Construtor do Jogo
@@ -198,7 +201,8 @@ window.addEventListener('load', () => {
         chooseSuspectAction();
         choosePlacesAction();
         chooseWeaponsAction();
-        makeCardsClickable();   
+        makeCardsClickable();  
+        makeTransitionBtnClickable(); 
     })
     
     const playerRed = new Player('red');
@@ -213,16 +217,16 @@ window.addEventListener('load', () => {
     })
     
     // Draw Hand no momento
-    const test1 = document.querySelector('#test1card');
-    test1.addEventListener ('click', () => {
+    // const test1 = document.querySelector('#test1card');
+    // test1.addEventListener ('click', () => {
         
-    })
+    // })
 
-    const turnPlus1 = document.querySelector('#turn');
-    turnPlus1.addEventListener ('click', () => {
-        updateTurn();
+    // const turnPlus1 = document.querySelector('#turn');
+    // turnPlus1.addEventListener ('click', () => {
+    //     updateTurn();
         
-    })
+    // })
     
     const changeScreens = document.querySelector('#screen-test');
     changeScreens.addEventListener ('click', () => {
@@ -238,22 +242,38 @@ window.addEventListener('load', () => {
 
     function deliverCards() {
         const cards = document.querySelectorAll('#ghost-hand .vision-card')
+        const cardsSelected = document.querySelectorAll('.active')
+        if (!cardsSelected.length){
+            return window.alert('You must pass a vision to the player')
+        };
         for (let i = cards.length - 1; i >= 0 ; i -= 1){
-            if (!cards.length){
-                return window.alert('You must pass a vision to the player')
-            }
             if (cards[i].className.includes('active')){
                 const card = ghost.removeFromHand(i);
                 for (let j = 0; j < card.length; j += 1){
                     playerRed.addToHand(card[j]);
                 };
             };
-        }
+        };
         ghost.updateHand();
         playerRed.showHand();
         changeScreen();
     }
 
+    
+    function makeCardsClickable() {
+        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
+        for (let card of cardClicker){
+            card.addEventListener('click', selectCard);
+        }
+    }
+
+    function makeTransitionBtnClickable(){
+        const transitionBtn = document.querySelector('input[value="Yes"]')
+        transitionBtn.addEventListener('click', () => {
+            transitioningScreen();
+        })
+    }
+    
     function chooseThis(){
         const indexBtn = document.querySelectorAll('.choose')
         let indexNumber = 0;
@@ -262,17 +282,9 @@ window.addEventListener('load', () => {
                 indexNumber = i;
             }
         }
-        return indexNumber - (6 * playerRed.playerCorrectGuess.length)
-        
+        return indexNumber - (6 * playerRed.playerCorrectGuess.length)  
     }
 
-    function makeCardsClickable() {
-        const cardClicker = document.querySelectorAll('#ghost-hand .vision-card')
-        for (let card of cardClicker){
-           card.addEventListener('click', selectCard);
-        }
-    }
-    
     function chooseSuspectAction(){
         const btnClicker = document.querySelectorAll('.choose-suspect');
         for (let btn of btnClicker){
@@ -280,7 +292,7 @@ window.addEventListener('load', () => {
             btn.addEventListener('click', chooseThis);
             btn.addEventListener('click', compareSuspect);
             btn.addEventListener('click', roundsUp);
-            btn.addEventListener('click', changeScreen);
+            btn.addEventListener('click', transitionScreenAppears);
         }
     }
 
@@ -291,7 +303,7 @@ window.addEventListener('load', () => {
             btn.addEventListener('click', chooseThis);
             btn.addEventListener('click', comparePlaces);
             btn.addEventListener('click', roundsUp);
-            btn.addEventListener('click', changeScreen);
+            btn.addEventListener('click', transitionScreenAppears);
         }
     }
 
@@ -302,7 +314,7 @@ window.addEventListener('load', () => {
             btn.addEventListener('click', chooseThis);
             btn.addEventListener('click', compareWeapon);
             btn.addEventListener('click', roundsUp);
-            btn.addEventListener('click', changeScreen);
+            btn.addEventListener('click', transitionScreenAppears);
         }
     }
 
@@ -381,11 +393,10 @@ window.addEventListener('load', () => {
             turnsCounter[i].innerHTML = `Round: ${boardMysterium.turn}`
         }
         roundsUp();
-        
     }
 
     function changeScreen(){
-        states.ghostTable = !states.ghostTable; 
+        states.ghostTable = !states.ghostTable;  
         states.playerTable = !states.playerTable;
         if (!states.playerTable){
             playerTable.classList.add('hidden')
@@ -398,6 +409,17 @@ window.addEventListener('load', () => {
             ghostTable.classList.add('hidden')
         };
     };
+
+    function transitioningScreen(){    
+        ghostTransition.classList.add('hidden')  
+        ghostTable.classList.remove('hidden')      
+    }
+    
+    function transitionScreenAppears(){
+        ghostTransition.classList.remove('hidden')
+        changeScreen();  
+        ghostTable.classList.add('hidden')  
+    }
 
     function updatePlayersTable(){
         if (playerRed.playerCorrectGuess.length === 0){
@@ -414,7 +436,7 @@ window.addEventListener('load', () => {
         }
     }
     
-});
+// });
 
 
    
