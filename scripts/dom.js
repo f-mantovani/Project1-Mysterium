@@ -217,6 +217,7 @@ window.addEventListener('load', () => {
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
         welcomePage.classList.add('hidden')
+        mainBoard.classList.remove('hidden')
         updatePlayersTable();
         changeScreen();
         ghost.pickMystery();

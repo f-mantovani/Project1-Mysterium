@@ -8,30 +8,31 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
-    <div id="main-board"> 
-     <section id="welcome-page">
-          Welcome
-          <input type="button" id="test-button" value="Start" />
-          <!-- <input type="button" id="test1card" value="crow" /> -->
-          <!-- <input type="button" id="turn" value="+1 turn" /> -->
-          <input type="button" id="screen-test" value="Change Screen" />
-        </section>
-        <section id="ghost-table">
-          <div class="turns"></div>
-          <div class="player-guess"></div>
-          <div class="ghost-div">  
-            <div id="red-mystery"></div>
-            <div id="ghost-visions-organizer">
-              <input type="button" id="dumper" value="Pass cards to player" /> 
-              <div id="ghost-hand"></div>
-            </div>
-          </div>  
+    <section id="welcome-page">
+      Welcome
+      <input type="button" id="test-button" value="Start" />
+      <!-- <input type="button" id="test1card" value="crow" /> -->
+      <!-- <input type="button" id="turn" value="+1 turn" /> -->
+      <input type="button" id="screen-test" value="Change Screen" />
+    </section>
+    <div id="main-board" class="hidden">
+      <section id="ghost-table">
+        <div class="turns"></div>
+        <div class="player-guess"></div>
+        <div class="ghost-div">
+          <div id="red-mystery"></div>
+          <div id="ghost-visions-organizer">
+            <input type="button" id="dumper" value="Pass cards to player" />
+            <div id="ghost-hand"></div>
+          </div>
+        </div>
         <div id="table-overview">
+          <p>Ghost's Overview</p>
           <div id="suspect-table"></div>
           <div id="places-table"></div>
           <div id="weapons-table"></div>
         </div>
-      <!-- <input type="button" value="Click Here Ghost" /> -->
+        <!-- <input type="button" value="Click Here Ghost" /> -->
       </section>
       <section id="players-table">
         <div class="turns"></div>
@@ -40,11 +41,11 @@
         <div id="suspect"></div>
         <div id="places"></div>
         <div id="weapons"></div>
-    </section>
-    <section id="transition" class="hidden">
-      <div>Are you the Ghost?</div>
-      <input type="button" value="Yes" />
-    </section>
+      </section>
+      <section id="transition" class="hidden">
+        <div>Are you the Ghost?</div>
+        <input type="button" value="Yes" />
+      </section>
     </div>
     <div id="won" class="hidden">You won</div>
     <div id="lose" class="hidden">You Lose</div>
