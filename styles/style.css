@@ -58,7 +58,7 @@ img {
 .ghost-div {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10vh;
+  margin-bottom: 15vh;
 }
 
 #ghost-visions-organizer {
@@ -72,18 +72,19 @@ img {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  height: 170px;
+  height: 170px;  
 }
 
 #ghost-hand > img {
   width: 80px;
   height: auto;
+  z-index: 1;
 }
 
 #ghost-hand img:hover {
   width: auto;
   height: 40vh;
-  z-index: 0;
+  z-index: 1;
 }
 
 #dumper {
@@ -93,12 +94,13 @@ img {
 
 #crows{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-end;
 }
 
 .crow {
-  width: 15vw;
+  width: auto;
+  height: 15vh;
 }
 
 .turns {
@@ -118,8 +120,9 @@ img {
 #table-overview {
   display: flex;
   flex-direction: column;
-  margin-top: -30vh;
+  margin-top: -40vh;
   width: 60vw;
+  z-index: 0;
 }
 
 #table-overview > div > img {
