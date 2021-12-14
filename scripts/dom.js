@@ -113,6 +113,7 @@ window.addEventListener('load', () => {
         nextTurn = () => {
             this.turn += 1;
         }
+
     }
     
     // Construtor do Fantasma
@@ -121,7 +122,7 @@ window.addEventListener('load', () => {
         constructor(){
             this.visions = boardMysterium.uniqueVisions;
             this.mystery = [];
-            this.crows = 3;
+            this.crows = [];
         }
         
         drawHand = () => {
@@ -152,6 +153,12 @@ window.addEventListener('load', () => {
             while(this.visions.length){
                 this.visions.pop()
             };
+        };
+
+        bringTheCrows = () => {
+            for (let i = 0; i < crowsData.length; i += 1){
+                this.crows.push(crowsData[i])
+            }
         }
 
 
@@ -213,7 +220,7 @@ window.addEventListener('load', () => {
     
     const boardMysterium = new Board();
     
-    // Botões para teste rápido - tudo vai sumir depois
+    // Botões
     const test = document.querySelector('#test-button');
     test.addEventListener('click', () => {
         boardMysterium.randomBoard();
@@ -226,8 +233,9 @@ window.addEventListener('load', () => {
         chooseSuspectAction();
         choosePlacesAction();
         chooseWeaponsAction();
-        makeCardsClickable();  
-        makeCrowsClickable();
+        makeCardsClickable(); 
+        ghost.bringTheCrows();
+        updateCrowCount(); 
         makeTransitionBtnClickable(); 
     })
     
@@ -241,24 +249,6 @@ window.addEventListener('load', () => {
         ghost.updateHand();
         makeCardsClickable();
     })
-    
-   // Draw Hand no momento
-    // const test1 = document.querySelector('#test1card');
-    // test1.addEventListener ('click', () => {
-    //     useCrow();
-    // })
-
-    // const turnPlus1 = document.querySelector('#turn');
-    // turnPlus1.addEventListener ('click', () => {
-    //     updateTurn();
-        
-    // })
-    
-    // const changeScreens = document.querySelector('#screen-test');
-    // changeScreens.addEventListener ('click', () => {
-    //     changeScreen();   
-    // })
-
     
     function makeCrowsClickable(){
         const crows =[...document.querySelectorAll('.crow')];
@@ -299,15 +289,18 @@ window.addEventListener('load', () => {
         ghost.callCrow();
         ghost.drawHand();
         ghost.updateHand();
-        makeCardsClickable();
-        ghost.crows -= 1;
+        removeCrow();
         updateCrowCount();
+    }
+
+    function removeCrow(){
+        ghost.crows.pop();
     }
 
     function updateCrowCount(){
         crowCounter.innerHTML = "";
-        for (let i = 0; i < ghost.crows; i += 1){
-            crowCounter.innerHTML += '<input type="button" class="crow" value="crow" />'
+        for (let i = 0; i < ghost.crows.length; i += 1){
+            crowCounter.innerHTML += `<img src=${ghost.crows[i].image} class="crow" />`
         }
         makeCrowsClickable();
     }
