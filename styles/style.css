@@ -1,234 +1,270 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap");
 
-*{
-    background-color: rgb(81, 99, 153);
-    /* border: 1px solid red; */
-    margin: 1px;
-    padding: 1px;
+* {
+  background-color: rgb(81, 99, 153);
+  /* border: 1px solid red; */
+  margin: 0px;
+  padding: 1px;
 }
 
-body{ 
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #041B2F;
+body {
+  font-family: "Playfair Display", serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #041b2f;
 }
 
-h1{
-    font-family: 'Cinzel', serif;
-    font-size: 64px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 86px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #041B2F;
+h1 {
+  font-family: "Cinzel", serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 86px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #041b2f;
 }
 
-h2{
-    font-family: 'Cinzel', serif;
-    font-family: Cinzel;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 43px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #041B2F;
+h2 {
+  font-family: "Cinzel", serif;
+  font-family: Cinzel;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 43px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #041b2f;
 }
-
 
 img {
-    width: 180px;
+  width: 15vw;
 }
 
-#ghost-table{
-   display: flex;
-   flex-direction: column;
+#turn-guess {
+  display: flex;
+  justify-content: space-between;
 }
 
-.ghost-div{
-    display: flex;
-    justify-content: space-between;
-    
+#ghost-table {
+  display: flex;
+  flex-direction: column;
 }
 
-#ghost-visions-organizer{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+.ghost-div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10vh;
 }
 
-#ghost-hand{
-    display: flex; 
-    justify-content: flex-start;
-    align-items: flex-start;
+#ghost-visions-organizer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+#ghost-hand {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 170px;
 }
 
 #ghost-hand > img {
-    width: 70px;
-    height: auto;
-    
+  width: 80px;
+  height: auto;
 }
 
-#ghost-hand img:hover{
-    width: 140px;
-    height: auto;
+#ghost-hand img:hover {
+  width: auto;
+  height: 40vh;
+  z-index: 0;
 }
 
-.turns{
-    height: 25px;
+#dumper {
+  width: 20vw;
+  margin-top: 12vh;
+}
+
+#crows{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.crow {
+  width: 15vw;
+}
+
+.turns {
+  height: 25px;
 }
 
 #red-mystery {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #red-mystery > .player-card {
-    width: auto;
-    height: 120px;
+  width: auto;
+  height: 15vh;
 }
 
-#table-overview{
-    display: flex;
-    flex-direction: column;
+#table-overview {
+  display: flex;
+  flex-direction: column;
+  margin-top: -30vh;
+  width: 60vw;
 }
 
 #table-overview > div > img {
-    width:100px;
-    height: auto;
+  width: 8vw;
+  height: auto;
 }
 
 #table-overview > div > img:hover {
-    width:320px;
-    height: auto;
+  width: 24vw;
+  height: auto;
 }
 
 #table-overview > div > .weapon-card {
-    width:auto;
-    height: 80px;
+  width: auto;
+  height: 20vh;
 }
 
 #table-overview > div > .weapon-card:hover {
-    width:auto;
-    height: 240px;
+  width: auto;
+  height: 35vh;
 }
 
-#suspect-table{
-    display: flex; 
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: center;
+#suspect-table {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: center;
 }
 
-#places-table{
-    display: flex; 
-    justify-content: flex-start;
-    align-items: flex-start;
+#places-table {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-#weapons-table{
-    display: flex; 
-    justify-content: flex-start;
-    align-items: flex-start;
+#weapons-table {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
-span{
-    width: 80px;
+span {
+  width: 80px;
 }
 
 .suspect,
 .place {
-    height: 120px;
-    width: auto;  
+  height: 8vw;
+  width: auto;
 }
 
-.weapon{
-    height: 140px;
-    width: auto;
+.weapon {
+  height: 17vh;
+  width: auto;
 }
 
-#p-hand{
-    display: flex; 
-    justify-content: flex-start;
-    align-items: flex-start;
+#player-organizer {
+    display: flex;
+    justify-content: space-between;
+    height: 50vh;
+}
+
+#p-hand {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 #p-hand > img {
-    width: 70px;
-    height: auto;
+  width: auto;
+  height: 30vh;
 }
 
-#p-hand img:hover{
-    width: 140px;
-    height: auto;
+#p-hand img:hover {
+  width: auto;
+  height: 40vh;
 }
 
 .active {
-    border: 2px solid black;
+  border: 2px solid black;
 }
 
-#suspect{
-    display: flex;
-    flex-wrap: wrap;
+#player-setup{
+   display: flex;
+   justify-content: center;
+  
 }
 
-.suspect-div{
-    width: 190px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#suspect {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
-#places{
-    display: flex;
-    flex-wrap: wrap;
+.suspect-div {
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.place-div{
-    width: 190px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#places {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#weapons{
-    display: flex;
-    flex-wrap: wrap;
+.place-div {
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.weapon-div{
-    width: 190px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#weapons {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.weapon-card{
-    height: 140px;
-    width: auto;
+.weapon-div {
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weapon-card {
+  height: auto;
+  width: 10vw;
 }
 
 .choose-btn {
-    width: 60px;
-    height: 1.5rem;
-    text-align: center;
+  width: 60px;
+  height: 1.5rem;
+  text-align: center;
 }
 
-#transition{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    margin-top: 40vh;
+#transition {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 40vh;
 }
 
-.hidden{
-    display: none !important;
+.hidden {
+  display: none !important;
 }

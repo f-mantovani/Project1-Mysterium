@@ -5,6 +5,7 @@ window.addEventListener('load', () => {
     const ghostTable = document.querySelector('#ghost-table');
     const visionsHand = document.querySelector('#ghost-hand');
     const guessing = document.querySelector('.player-guess')
+    const crowCounter = document.querySelector('#crows')
     const redMystery = document.querySelector('#red-mystery');
     const suspectOverview = document.querySelector('#suspect-table');
     const placesOverview = document.querySelector('#places-table');
@@ -226,6 +227,7 @@ window.addEventListener('load', () => {
         choosePlacesAction();
         chooseWeaponsAction();
         makeCardsClickable();  
+        makeCrowsClickable();
         makeTransitionBtnClickable(); 
     })
     
@@ -252,10 +254,19 @@ window.addEventListener('load', () => {
         
     // })
     
-    const changeScreens = document.querySelector('#screen-test');
-    changeScreens.addEventListener ('click', () => {
-        changeScreen();   
-    })
+    // const changeScreens = document.querySelector('#screen-test');
+    // changeScreens.addEventListener ('click', () => {
+    //     changeScreen();   
+    // })
+
+    
+    function makeCrowsClickable(){
+        const crows =[...document.querySelectorAll('.crow')];
+        crows.forEach((crow) => {
+        crow.addEventListener('click',() => {
+            useCrow();
+        })
+    })}
     
     // Funções de ação
     function selectCard (event) {
@@ -284,9 +295,26 @@ window.addEventListener('load', () => {
     }
 
     function useCrow(){
+        playCrowSound();
         ghost.callCrow();
         ghost.drawHand();
         ghost.updateHand();
+        makeCardsClickable();
+        ghost.crows -= 1;
+        updateCrowCount();
+    }
+
+    function updateCrowCount(){
+        crowCounter.innerHTML = "";
+        for (let i = 0; i < ghost.crows; i += 1){
+            crowCounter.innerHTML += '<input type="button" class="crow" value="crow" />'
+        }
+        makeCrowsClickable();
+    }
+
+    function playCrowSound(){
+        let audio = new Audio ('./Mysterium/Sounds/CROW SOUND EFFECT.mp3');
+        audio.play();
     }
 
     function updateMystery(){

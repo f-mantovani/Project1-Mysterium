@@ -11,19 +11,24 @@
     <section id="welcome-page">
       Welcome
       <input type="button" id="test-button" value="Start" />
-      <!-- <input type="button" id="test1card" value="crow" /> -->
-      <!-- <input type="button" id="turn" value="+1 turn" /> -->
-      <!-- <input type="button" id="screen-test" value="Change Screen" /> -->
+      <audio src="Mysterium/Sounds/Mysterium   Ambiance Music   Musique d'ambiance.mp3" type="audio/mpeg" autoplay="true" loop="true">
     </section>
     <div id="main-board" class="hidden">
       <section id="ghost-table">
-        <div class="turns"></div>
-        <div class="player-guess"></div>
+        <div id="turn-guess">
+          <div class="player-guess"></div>
+          <div class="turns"></div>
+        </div>
         <div class="ghost-div">
           <div id="red-mystery"></div>
           <div id="ghost-visions-organizer">
-            <input type="button" id="dumper" value="Pass cards to player" />
             <div id="ghost-hand"></div>
+            <input type="button" id="dumper" value="Pass cards to player" />
+            <div id="crows">
+              <input type="button" class="crow" value="crow" />
+              <input type="button" class="crow" value="crow" />
+              <input type="button" class="crow" value="crow" />
+            </div>
           </div>
         </div>
         <div id="table-overview">
@@ -36,11 +41,15 @@
       </section>
       <section id="players-table">
         <div class="turns"></div>
-        <div class="player-pic"></div>
-        <div id="p-hand"></div>
-        <div id="suspect"></div>
-        <div id="places"></div>
-        <div id="weapons"></div>
+        <div id="player-organizer">
+          <div class="player-pic"></div>
+          <div id="p-hand"></div>
+        </div>
+        <div id="player-setup">
+          <div id="suspect"></div>
+          <div id="places"></div>
+          <div id="weapons"></div>
+        </div>
       </section>
       <section id="transition" class="hidden">
         <div>Are you the Ghost?</div>
