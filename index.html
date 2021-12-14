@@ -8,35 +8,61 @@
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
+    <!-- Primeira parte, sessão de "login" -->
     <section id="welcome-page">
-      Welcome
-      <input type="button" id="test-button" value="Start" />
-      <audio src="Mysterium/Sounds/Abandoned House   Creaking, Wind, Sunset   15 Minutes of Ambience.mp3" type="audio/mpeg" autoplay="true" loop="true">
+      <h1>Welcome</h1>
+      <input type="button" id="start-button" value="Start Game" />
+      <p>Welcome to the game!</p>
+      <p>This is a hotseat iteration for Mysterium</p>
+      <p>
+        There are two players, one is the ghost and the other is the medium,
+        <br />
+        and they need to change places when playing.
+      </p>
+      <p>
+        Every round the Ghost needs to give at least one vision to the player
+      </p>
+      <p>and the player takes one guess about suspect, place or weapon.</p>
+      <audio
+        src="Mysterium/Sounds/Abandoned House   Creaking, Wind, Sunset   15 Minutes of Ambience.mp3"
+        type="audio/mpeg"
+        autoplay="true"
+        loop="true"
+      ></audio>
     </section>
+    <!-- Main board -> Tanto Ghost quanto Player  -->
     <div id="main-board" class="hidden">
+      <!-- Aqui é o Ghost -->
       <section id="ghost-table">
-        <div id="turn-guess">
-          <div class="player-guess"></div>
-          <div class="turns"></div>
-        </div>
-        <div class="ghost-div">
-          <div id="red-mystery"></div>
-          <div id="ghost-visions-organizer">
+        <div id="ghost-upper">
+          <div id="turn-guess">
+            <div class="turns"></div>
+            <div class="player-guess"></div>
+            <div id="red-mystery"></div>
+          </div>
+          <!-- Lado das visions -->
+          <div id="visions-organizer">
+            <div id="upper-organizer">
+              <h3>SELECT THE VISION(S)</h3>
+              <div id="crows"></div>
+            </div>
             <div id="ghost-hand"></div>
-            <input type="button" id="dumper" value="Pass cards to player" />
-            <div id="crows">
-              
+            <input type="button" id="pass-cards" value="PASS CARDS TO PLAYER" />
+          </div>
+        </div>
+        <!-- Overview da mesa do jogador -->
+        <div id="table-overview">
+          <div id="general-overview">
+            <p>Ghost's Overview</p>
+            <div id="specific-overview">
+              <div id="suspect-table"></div>
+              <div id="places-table"></div>
+              <div id="weapons-table"></div>
             </div>
           </div>
         </div>
-        <div id="table-overview">
-          <p>Ghost's Overview</p>
-          <div id="suspect-table"></div>
-          <div id="places-table"></div>
-          <div id="weapons-table"></div>
-        </div>
-        <!-- <input type="button" value="Click Here Ghost" /> -->
       </section>
+      <!-- Aqui é o player  -->
       <section id="players-table">
         <div class="turns"></div>
         <div id="player-organizer">
@@ -49,6 +75,7 @@
           <div id="weapons"></div>
         </div>
       </section>
+      <!-- Aqui é a transição dos dois -->
       <section id="transition" class="hidden">
         <div>Are you the Ghost?</div>
         <input type="button" value="Yes" />

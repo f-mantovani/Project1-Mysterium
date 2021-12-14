@@ -1,10 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Playfair+Display&display=swap");
 
 * {
-  background-color: rgb(81, 99, 153);
+  background-color: rgb( 81, 99, 153);
   /* border: 1px solid red; */
   margin: 0px;
-  padding: 1px;
+  padding: 0px;
 }
 
 body {
@@ -26,7 +26,8 @@ h1 {
   line-height: 86px;
   letter-spacing: 0em;
   text-align: left;
-  color: #041b2f;
+  color: #F0E4DB;
+  background-color: transparent;
 }
 
 h2 {
@@ -41,142 +42,158 @@ h2 {
   color: #041b2f;
 }
 
-img {
-  width: 15vw;
+
+#welcome-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../Mysterium/images/welcome\ background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
-#turn-guess {
+#start-button{
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 54px;
+  width: 267px;
+  height: 64px;
+  background: linear-gradient(180deg, #29F5F2 0%, #1589EB 68.23%, #0C528D 100%);
+  box-shadow: 1.45977px 1.45977px 21.8966px rgba(41, 245, 242, 0.4);  
+  border-radius: 12px;
+  color: #041B2F;
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+}
+
+#start-button:hover{
+  background-color: #1589EB;
+  background: linear-gradient(0deg, #1589EB, #1589EB), linear-gradient(180deg, #29F5F2 0%, #1589EB 68.23%, #0C528D 100%);
+  box-shadow: 1.45977px 1.45977px 21.8966px rgba(41, 245, 242, 0.4);
+}
+
+p{
+  background-color: transparent;
+  color: #F0E4DB;
+  font-family: Playfair Display;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 185.8%;
+}
+
+#main-board{
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../Mysterium/images/game-background.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#ghost-upper{
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
 }
 
-#ghost-table {
+#turn-guess{
   display: flex;
   flex-direction: column;
 }
 
-.ghost-div {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15vh;
-}
-
-#ghost-visions-organizer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-}
-
-#ghost-hand {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 170px;  
-}
-
-#ghost-hand > img {
-  width: 80px;
-  height: auto;
-  z-index: 1;
-}
-
-#ghost-hand img:hover {
-  width: auto;
-  height: 40vh;
-  z-index: 1;
-}
-
-#dumper {
-  width: 20vw;
-  margin-top: 12vh;
-}
-
-#crows{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-}
-
-.crow {
-  width: auto;
-  height: 15vh;
-}
-
-.turns {
-  height: 25px;
-}
-
-#red-mystery {
+#red-mystery{
   display: flex;
   flex-direction: row;
 }
 
-#red-mystery > .player-card {
-  width: auto;
-  height: 15vh;
+#red-mystery > div > .suspect,
+#red-mystery > div > .place {
+  width: 211px;
+  height: 138px;
+}
+#red-mystery > div > .weapon {
+  width: 104px;
+  height: 154px;
 }
 
-#table-overview {
+#vision-organizer{
   display: flex;
   flex-direction: column;
-  margin-top: -40vh;
-  width: 60vw;
-  z-index: 0;
 }
 
-#table-overview > div > img {
-  width: 8vw;
-  height: auto;
-}
-
-#table-overview > div > img:hover {
-  width: 24vw;
-  height: auto;
-}
-
-#table-overview > div > .weapon-card {
-  width: auto;
-  height: 20vh;
-}
-
-#table-overview > div > .weapon-card:hover {
-  width: auto;
-  height: 35vh;
-}
-
-#suspect-table {
+#upper-organizer{
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: center;
+  align-items: flex-end;
 }
 
-#places-table {
+.crow{
+  width: 55px;
+  height: 84px;
+}
+
+#ghost-hand > img{
+  width: 84px;
+  height: 128px;
+  margin: 1px 5px;
+}
+
+#pass-cards{
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 54px;
+  width: 418px;
+  height: 64px;
+  background: linear-gradient(180deg, #29F5F2 0%, #1589EB 68.23%, #0C528D 100%);
+  box-shadow: 1.45977px 1.45977px 21.8966px rgba(41, 245, 242, 0.4);
+  border-radius: 12px;
+  font-family: Cinzel;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
 }
 
-#weapons-table {
+#general-overview{
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: column;
 }
 
-span {
-  width: 80px;
+#specific-overview{
+  display: flex;
+  flex-direction: row;
 }
 
-.suspect,
-.place {
-  height: 8vw;
-  width: auto;
+#suspect-table,
+#places-table,
+#weapons-table{
+  width: 33vw;
 }
 
-.weapon {
-  height: 17vh;
-  width: auto;
+#suspect-table > img,
+#places-table > img{
+  width: 131px;
+  height: 85px;
+}
+
+#weapons-table > img{
+  width: 67px;
+  height: 100px;
 }
 
 #player-organizer {
