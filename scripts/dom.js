@@ -1,4 +1,4 @@
-window.addEventListener('load', () => {
+// window.addEventListener('load', () => {
 
     // Variáveis de DOM
     const welcomePage = document.querySelector('#welcome-page')
@@ -21,6 +21,7 @@ window.addEventListener('load', () => {
     const mainBoard = document.querySelector('#main-board');
     const wonScreen = document.querySelector('#won');
     const loseScreen = document.querySelector('#lose');
+    
 
     
     // States das mesas de jogo
@@ -73,9 +74,9 @@ window.addEventListener('load', () => {
     
         populateBoard = () => {
             playerPic.innerHTML += `<img src =${players[5].image} class="player-card" />`;
-            suspectOverview.innerHTML += `<p>Suspects</p>`;
-            placesOverview.innerHTML += `<p>Places</p>`;
-            weaponsOverview.innerHTML += `<p>Weapons</p>`;
+            suspectOverview.innerHTML += `<p>SUSPECTS</p>`;
+            placesOverview.innerHTML += `<p>PLACES</p>`;
+            weaponsOverview.innerHTML += `<p>WEAPONS</p>`;
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
                 suspectPlayerTable.innerHTML += ` <div class="suspect-div">
                 <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
@@ -108,7 +109,7 @@ window.addEventListener('load', () => {
             for (let i = 0; i < turnsCounter.length; i += 1){
                 turnsCounter[i].innerHTML = `
                 <h2>Round: ${boardMysterium.turn}</h2>
-                <span>out of 7</span>
+                <p>out of 7</p>
                 `
             }
          }
@@ -175,7 +176,7 @@ window.addEventListener('load', () => {
             this.mystery.push(mysterySuspect, mysteryPlace, mysteryWeapon);
             this.mystery.forEach((e) => {
                 redMystery.innerHTML += `
-                <div>
+                <div id="${e.class}-mystery">
                 <p>${e.class.toUpperCase()}</p>
                 <img src=${e.image} class=${e.class} />
                 </div>
@@ -195,7 +196,7 @@ window.addEventListener('load', () => {
 
         showHand = () => {
             playerHand.innerHTML = ``;
-            
+            playerHand.innerHTML += "<h3>VISIONS</h3>";
             for (let i = 0; i < this.hand.length; i += 1){
                 playerHand.innerHTML += `<img src=${this.hand[i].image} class="vision-card" />`
             }
@@ -296,6 +297,7 @@ window.addEventListener('load', () => {
         ghost.callCrow();
         ghost.drawHand();
         ghost.updateHand();
+        makeCardsClickable();
         removeCrow();
         updateCrowCount();
     }
@@ -317,19 +319,21 @@ window.addEventListener('load', () => {
         crowSound.volume = 0.3;
         crowSound.play();
     }
-    // TODO: colocar a adição e remoção de classe aqui
     function updateMystery(){
-        if(playerRed.playerCorrectGuess.length === 0){
-            guessing.innerHTML = "Player is guessing:"
-        }
+        const suspectGuessing = document.querySelector('#suspect-mystery')
+        const placeGuessing = document.querySelector('#place-mystery')
+        const weaponGuessing = document.querySelector('#weapon-mystery')
+        guessing.innerHTML = "<p>Player is guessing:</p>"
+        if(playerRed.playerCorrectGuess.length === 0){ 
+            suspectGuessing.classList.add('guessing')  
+            }
         if(playerRed.playerCorrectGuess.length === 1){
-            guessing.innerHTML = "";
-            guessing.innerHTML = "Player is guessing:"
+            suspectGuessing.classList.remove('guessing')  
+            placeGuessing.classList.add('guessing')  
         }
         if(playerRed.playerCorrectGuess.length === 2){
-            guessing.innerHTML = "";
-            guessing.innerHTML = "Player is guessing:";
-
+            placeGuessing.classList.remove('guessing')  
+            weaponGuessing.classList.add('guessing')  
         }
     }
  
@@ -442,7 +446,7 @@ window.addEventListener('load', () => {
         for (let i = 0; i < turnsCounter.length; i += 1){
             turnsCounter[i].innerHTML = `
             <h2>Round: ${boardMysterium.turn}</h2>
-            <span>out of 7</span>
+            <p>out of 7</p>
             `
         }
         roundsUp();
@@ -515,4 +519,4 @@ window.addEventListener('load', () => {
         }
     }
 
-});
+// });

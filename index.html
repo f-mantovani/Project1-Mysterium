@@ -10,7 +10,7 @@
   <body>
     <!-- Primeira parte, sessão de "login" -->
     <section id="welcome-page">
-      <h1>Welcome</h1>
+      <h1>Mysterium</h1>
       <input type="button" id="start-button" value="Start Game" />
       <p>Welcome to the game!</p>
       <p>This is a hotseat iteration for Mysterium</p>
@@ -53,7 +53,7 @@
         <!-- Overview da mesa do jogador -->
         <div id="table-overview">
           <div id="general-overview">
-            <p>Ghost's Overview</p>
+            <p>OVERVIEW</p>
             <div id="specific-overview">
               <div id="suspect-table"></div>
               <div id="places-table"></div>
@@ -64,23 +64,27 @@
       </section>
       <!-- Aqui é o player  -->
       <section id="players-table">
-        <div class="turns"></div>
+        <!-- Setor superior -->
         <div id="player-organizer">
           <div class="player-pic"></div>
-          <div id="p-hand"></div>
+          <div class="turns"></div>
         </div>
+        <!-- Aqui vão as visões -->
+        <div id="p-hand"></div>
+        <!-- Aqui é a mesa com as escolhas -->
         <div id="player-setup">
+          <h3>MAKE YOUR CHOICE</h3>
           <div id="suspect"></div>
           <div id="places"></div>
           <div id="weapons"></div>
         </div>
       </section>
       <!-- Aqui é a transição dos dois -->
-      <section id="transition" class="hidden">
-        <div>Are you the Ghost?</div>
-        <input type="button" value="Yes" />
-      </section>
     </div>
+    <section id="transition" class="hidden">
+      <h1>Are you the Ghost?</h1>
+      <input type="button" value="Yes" />
+    </section>
     <div id="won" class="hidden">You won</div>
     <div id="lose" class="hidden">You Lose</div>
     <script src="./scripts/data.js"></script>
