@@ -20,11 +20,10 @@
     const ghostTransition = document.querySelector('#transition');
     const mainBoard = document.querySelector('#main-board');
     const wonScreen = document.querySelector('#won');
+    const mysteryDown = document.querySelector('#mysteryDown');
     const loseScreen = document.querySelector('#lose');
     
 
-    
-    // States das mesas de jogo
     const states = {
         mainBoard: true,
         wonScreen: false,
@@ -319,6 +318,7 @@
         crowSound.volume = 0.3;
         crowSound.play();
     }
+
     function updateMystery(){
         const suspectGuessing = document.querySelector('#suspect-mystery')
         const placeGuessing = document.querySelector('#place-mystery')
@@ -399,8 +399,10 @@
     }
 
     function compareSuspect(){
+        const suspectWrong = document.querySelectorAll('.suspect-div')
         const suspectGuess = playerRed.takeAGuess(chooseThis());
         const suspectBtn = document.querySelectorAll('#suspect .choose-suspect')
+        let thisNumber = chooseThis();
         suspectBtn[chooseThis()].classList.remove('active');
         if (suspectGuess === ghost.mystery[0]){
             playerRed.playerCorrectGuess.push(ghost.mystery[0])
@@ -408,13 +410,16 @@
             playerRed.cleanHand();
             return updatePlayersTable();
         }
+        suspectWrong[thisNumber].classList.add('tried');
         updateTurn();
         return window.alert('you guessed wrong');   
     }
-
+    
     function comparePlaces(){
+        const placeWrong = document.querySelectorAll('.place-div')
         const placesGuess = playerRed.takeAGuess(chooseThis());
         const placesBtn = document.querySelectorAll('#places .choose-place')
+        let thisNumber = chooseThis();
         placesBtn[chooseThis()].classList.remove('active');
         if (placesGuess === ghost.mystery[1]){
             playerRed.playerCorrectGuess.push(ghost.mystery[1])
@@ -422,13 +427,16 @@
             playerRed.cleanHand();
             return updatePlayersTable();
         }
+        placeWrong[thisNumber].classList.add('tried');
         updateTurn();
         return window.alert('you guessed wrong')
     }
-
+    
     function compareWeapon(){
+        const weaponWrong = document.querySelectorAll('.weapon-div')
         const weaponGuess = playerRed.takeAGuess(chooseThis());
         const weaponBtn = document.querySelectorAll('#weapons .choose-weapon')
+        let thisNumber = chooseThis();
         weaponBtn[chooseThis()].classList.remove('active');
         if (weaponGuess === ghost.mystery[2]){
             playerRed.playerCorrectGuess.push(ghost.mystery[2]);
@@ -436,6 +444,7 @@
             playerRed.cleanHand();
             return youWon();
         }
+        weaponWrong[thisNumber].classList.add('tried');
         updateTurn();
         return window.alert('you guessed wrong')
     }
@@ -469,16 +478,16 @@
 
     function transitioningScreen(){    
         ghostTransition.classList.add('hidden')  
-        ghostTable.classList.remove('hidden')      
+        ghostTable.classList.remove('hidden')           
     }
     
     function transitionScreenAppears(){
         ghostTransition.classList.remove('hidden')
         changeScreen();  
-        ghostTable.classList.add('hidden')  
+        ghostTable.classList.add('hidden')   
     }
 
-    function updatePlayersTable(){
+    function updatePlayersTable(){  
         if (playerRed.playerCorrectGuess.length === 0){
             placesPlayerTable.classList.add('hidden')
             weaponsPlayerTable.classList.add('hidden')
@@ -497,11 +506,25 @@
         states.mainBoard = !states.mainBoard;
         states.wonScreen = !states.wonScreen;
         if (!states.mainBoard){
-            mainBoard.classList.add('hidden')
+            mainBoard.classList.add('hidden');
         }
         if (states.wonScreen){
             wonScreen.classList.remove('hidden')
+            displayMysteryOwned();
+
         }
+        
+    }
+
+    function displayMysteryOwned(){
+        ghost.mystery.forEach((card) => {
+            mysteryDown.innerHTML += `
+            <div class="guessing">
+            <p>${card.class.toUpperCase()}</p>
+            <img src=${card.image} class=${card.class} />
+            </div>
+            `
+        }  )
     }
     
     function roundsUp(){

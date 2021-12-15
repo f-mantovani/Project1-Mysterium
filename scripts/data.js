@@ -70,7 +70,6 @@ const visions = [
     {id: 06, image:'./Mysterium/Sonhos/sonhos-5.png'},
     {id: 07, image:'./Mysterium/Sonhos/sonhos-6.png'},
     {id: 08, image:'./Mysterium/Sonhos/sonhos-7.png'},
-    {id: 09, image:'./Mysterium/Sonhos/sonhos-8.png'},
     {id: 10, image:'./Mysterium/Sonhos/sonhos-9.png'},
     {id: 11, image:'./Mysterium/Sonhos/sonhos-10.png'},
     {id: 12, image:'./Mysterium/Sonhos/sonhos-11.png'},

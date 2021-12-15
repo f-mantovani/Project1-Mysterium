@@ -80,13 +80,23 @@
         </div>
       </section>
       <!-- Aqui é a transição dos dois -->
+      <section id="transition" class="hidden">
+        <h1>Are you the Ghost?</h1>
+        <input type="button" value="Yes" />
+      </section>
     </div>
-    <section id="transition" class="hidden">
-      <h1>Are you the Ghost?</h1>
-      <input type="button" value="Yes" />
-    </section>
-    <div id="won" class="hidden">You won</div>
-    <div id="lose" class="hidden">You Lose</div>
+    <div id="won" class="hidden">
+      <div class="won-rect"></div>
+      <div id="won-org">
+        <h1>You won</h1>
+        <div id="mysteryDown"></div>
+      </div>
+    </div>
+    <div id="lose" class="hidden">
+      <div class="won-rect"></div>
+      <h1>You Lost</h1>
+      </div>
+    </div>
     <script src="./scripts/data.js"></script>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/dom.js"></script>
