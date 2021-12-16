@@ -7,9 +7,12 @@ window.addEventListener('load', () => {
     const guessing = document.querySelector('.player-guess')
     const crowCounter = document.querySelector('#crows')
     const redMystery = document.querySelector('#red-mystery');
-    const suspectOverview = document.querySelector('#suspect-table');
-    const placesOverview = document.querySelector('#places-table');
-    const weaponsOverview = document.querySelector('#weapons-table');
+    const suspectOverview = document.querySelector('#suspect-overview');
+    const placesOverview = document.querySelector('#places-overview');
+    const weaponsOverview = document.querySelector('#weapons-overview');
+    const suspectGhostTable = document.querySelector('#suspect-table');
+    const placesGhostTable = document.querySelector('#places-table');
+    const weaponsGhostTable = document.querySelector('#weapons-table');
     const playerTable = document.querySelector('#players-table');
     const playerPic = document.querySelector('.player-pic')
     const suspectPlayerTable = document.querySelector('#suspect');
@@ -73,9 +76,7 @@ window.addEventListener('load', () => {
     
         populateBoard = () => {
             playerPic.innerHTML += `<img src =${players[5].image} class="player-card" />`;
-            suspectOverview.innerHTML += `<p>SUSPECTS</p>`;
-            placesOverview.innerHTML += `<p>PLACES</p>`;
-            weaponsOverview.innerHTML += `<p>WEAPONS</p>`;
+            
             for (let i = 0; i < this.uniqueSuspects.length; i += 1){
                 suspectPlayerTable.innerHTML += ` <div class="suspect-div">
                 <img src=${this.uniqueSuspects[i].image} class="suspect-card" />
@@ -508,18 +509,19 @@ window.addEventListener('load', () => {
 
     function updateGhostTable(){  
         if (playerRed.playerCorrectGuess.length === 0){
-            placesOverview.classList.add('hidden')
-            weaponsOverview.classList.add('hidden')
+            placesGhostTable.classList.add('hidden')
+            weaponsGhostTable.classList.add('hidden')
         } else if (playerRed.playerCorrectGuess.length === 1){
-            placesOverview.classList.remove('hidden')
-            weaponsOverview.classList.add('hidden')
-            suspectOverview.classList.add('hidden')
+            placesGhostTable.classList.remove('hidden')
+            weaponsGhostTable.classList.add('hidden')
+            suspectGhostTable.classList.add('hidden')
         } else if (playerRed.playerCorrectGuess.length === 2){
-            suspectOverview.classList.add('hidden')
-            placesOverview.classList.add('hidden')
-            weaponsOverview.classList.remove('hidden')
+            suspectGhostTable.classList.add('hidden')
+            placesGhostTable.classList.add('hidden')
+            weaponsGhostTable.classList.remove('hidden')
         }
     }
+
     function youWon(){
         states.mainBoard = !states.mainBoard;
         states.wonScreen = !states.wonScreen;

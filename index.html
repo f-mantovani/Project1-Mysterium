@@ -23,12 +23,13 @@
         Every round the Ghost needs to give at least one vision to the player
       </p>
       <p>and the player takes one guess about suspect, place or weapon.</p>
-      <!-- <audio
-        src="Mysterium/Sounds/bg-sound.mp3"
-        type="audio/mpeg"
+      <audio
+        src="./Mysterium/Sounds/Copyright-Free-Dark-Ambient-Musi.mp3"
+        preload="auto"
         autoplay="true"
         loop="true"
-      ></audio> -->
+        id="bg-music"
+        ></audio>
     </section>
     <!-- Main board -> Tanto Ghost quanto Player  -->
     <div id="main-board" class="hidden">
@@ -55,9 +56,18 @@
           <div id="general-overview">
             <p>OVERVIEW</p>
             <div id="specific-overview">
-              <div id="suspect-table"></div>
-              <div id="places-table"></div>
-              <div id="weapons-table"></div>
+              <div id="suspect-table">
+                <p>SUSPECTS</p>
+                <div id="suspect-overview"></div>
+              </div>
+              <div id="places-table">
+                <p>PLACES</p>
+                <div id="places-overview"></div>
+              </div>
+              <div id="weapons-table">
+                <p>WEAPONS</p>
+                <div id="weapons-overview"></div>
+              </div>
             </div>
           </div>
         </div>

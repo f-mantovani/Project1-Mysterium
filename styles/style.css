@@ -193,8 +193,8 @@ p{
 }
 
 #ghost-hand > img:hover{
-  width: 125px;
-  height: 192px;
+  width: 188px;
+  height: 288px;
   margin-left: -50px;
   margin-right: 0;
   z-index: 1;
@@ -228,6 +228,7 @@ p{
 #general-overview{
   display: flex;
   flex-direction: column;
+  margin-top: -22px;
 }
 
 #general-overview p {
@@ -239,34 +240,34 @@ p{
   flex-direction: column;
 }
 
-#suspect-table,
-#places-table,
-#weapons-table{
+#suspect-overview,
+#places-overview,
+#weapons-overview{
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-around;
-  margin-left: -20px;
+  /* margin-left: -20px; */
 }
 
 #suspect-table{
-padding-bottom: 9.5px;
-padding-left: 10px;
+padding-bottom: 2px;
+padding-left: 0;
 }
 
 #places-table{
   padding-bottom: 8px;
-  padding-left: 10px;
+  padding-left: 0;
 }
 
 #weapons-table{
   padding-bottom: 10px;
-  margin-left: -50px;
+  margin-left:0;
 }
 
-#suspect-table > img,
-#places-table > img{
+#suspect-overview > img,
+#places-overview > img{
   width: 13vw ;
   height: auto;
   z-index: 0;
@@ -274,24 +275,27 @@ padding-left: 10px;
 }
 
 /* TODO: Acertar o zoom amanhã */
-/* #suspect-table > img:hover,
-#places-table > img:hover{
-  width:300px;
-  height: auto;
+#suspect-overview > img:hover,
+#places-overview > img:hover{
+  zoom: 200%;
   margin-left: 0;
-  margin-right: -100px;
+  margin-right: 0;
   margin-top: -80px;
   z-index: 1;
-} */
+}
 
-#weapons-table > img{
+#weapons-overview > img{
   width: auto;
   height: 113px;
 }
 /* TODO: Acertar o zoom */
-/* #weapons-table > img:hover{
-  zoom:120%;
-} */
+#weapons-overview > img:hover{
+  zoom:200%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: -80px;
+  z-index: 1;
+}
 
 
 
@@ -315,6 +319,10 @@ padding-left: 10px;
   width: 85px;
   height: 129px;
   margin: 5px;
+}
+#p-hand > img:hover{
+  zoom:200%;
+  z-index: 1;
 }
 
 #player-setup > h3{
@@ -366,6 +374,20 @@ padding-left: 10px;
   border-radius: 12px;
 }
 
+.choose-weapon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 36px;
+  width: 100px;
+  height: 45px;
+  left: calc(50% - 146px/2 - 248px);
+  top: calc(50% - 45px/2 + 127.5px);
+  background: linear-gradient(180deg, #29F5F2 0%, #1589EB 68.23%, #0C528D 100%);
+  box-shadow: 1.45977px 1.45977px 21.8966px rgba(41, 245, 242, 0.4);
+  border-radius: 12px;
+}
 #transition {
   display: flex;
   flex-direction: column;
