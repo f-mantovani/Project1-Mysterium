@@ -102,8 +102,8 @@ p{
 }
 
 #main-board{
-   width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-image: url("../Mysterium/images/export\ bg.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -119,6 +119,8 @@ p{
 #turn-guess{
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
 .turns,
@@ -151,6 +153,7 @@ p{
   align-items: center;
   justify-content: flex-end;
   padding-bottom: 2px;
+  margin: 2px;
 }
 
 #weapon-mystery{
@@ -160,6 +163,7 @@ p{
 #vision-organizer{
   display: flex;
   flex-direction: column;
+  padding-right: 20px;
 }
 
 #upper-organizer{
@@ -167,7 +171,7 @@ p{
   align-items: flex-end;
   justify-content: space-between;
   height: 93px;
-
+  padding-top: 90px;
 }
 
 .crow{
@@ -178,7 +182,7 @@ p{
 #ghost-hand{
   display: flex;
   justify-content: flex-start;
-  height: 194px;
+  height: 200px;
 }
 
 #ghost-hand > img{
@@ -191,6 +195,8 @@ p{
 #ghost-hand > img:hover{
   width: 125px;
   height: 192px;
+  margin-left: -50px;
+  margin-right: 0;
   z-index: 1;
 }
 
@@ -200,7 +206,7 @@ p{
   justify-content: center;
   align-items: center;
   padding: 16px 54px;
-  width: 418px;
+  width: 250px;
   height: 64px;
   background: linear-gradient(180deg, #29F5F2 0%, #1589EB 68.23%, #0C528D 100%);
   box-shadow: 1.45977px 1.45977px 21.8966px rgba(41, 245, 242, 0.4);
@@ -208,8 +214,8 @@ p{
   font-family: Cinzel;
   font-style: normal;
   font-weight: bold;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 24px;
   text-align: center;
 }
 
@@ -224,32 +230,63 @@ p{
   flex-direction: column;
 }
 
+#general-overview p {
+  padding-left: 10px;
+}
+
 #specific-overview{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 #suspect-table,
 #places-table,
 #weapons-table{
-  width: 33vw;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: -20px;
+}
+
+#suspect-table{
+padding-bottom: 9.5px;
+padding-left: 10px;
+}
+
+#places-table{
+  padding-bottom: 8px;
+  padding-left: 10px;
+}
+
+#weapons-table{
+  padding-bottom: 10px;
+  margin-left: -50px;
 }
 
 #suspect-table > img,
 #places-table > img{
-  width: 131px;
-  height: 85px;
+  width: 13vw ;
+  height: auto;
+  z-index: 0;
+  margin: 5px;
 }
 
 /* TODO: Acertar o zoom amanhã */
 /* #suspect-table > img:hover,
 #places-table > img:hover{
-  zoom:120%;
+  width:300px;
+  height: auto;
+  margin-left: 0;
+  margin-right: -100px;
+  margin-top: -80px;
+  z-index: 1;
 } */
 
 #weapons-table > img{
-  width: 67px;
-  height: 100px;
+  width: auto;
+  height: 113px;
 }
 /* TODO: Acertar o zoom */
 /* #weapons-table > img:hover{
@@ -260,6 +297,8 @@ p{
 
 #player-organizer{
   display: flex;
+  padding-top: 20px;
+  padding-left: 20px;
 }
 
 .player-pic > img{
@@ -268,28 +307,39 @@ p{
   border-radius: 80px;
 }
 
+#p-hand{
+  padding-left: 20px;
+}
+
 #p-hand > img{
   width: 85px;
   height: 129px;
   margin: 5px;
 }
 
+#player-setup > h3{
+  padding-left: 20px;
+}
+
 #suspect,
 #places,
 #weapons{
   display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 20px;
 }
 
 #suspect > div > img,
 #places > div > img{
  width: 15vw;
  height: auto;
- margin: 2px;
+ margin: 5px;
 }
 
 #weapons > div > img{
   width: auto;
-  height: 25vh;
+  height: 20vh;
   margin: 5px;
 }
 
@@ -322,6 +372,9 @@ p{
   justify-content: center;
   align-items: center;
   align-content: center;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 328px;
 }
 
 #transition h1 {

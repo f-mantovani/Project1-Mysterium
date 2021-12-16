@@ -1,4 +1,4 @@
-// window.addEventListener('load', () => {
+window.addEventListener('load', () => {
 
     // Variáveis de DOM
     const welcomePage = document.querySelector('#welcome-page')
@@ -231,8 +231,9 @@
     const startBtn = document.querySelector('#start-button');
     startBtn.addEventListener('click', () => {
         boardMysterium.randomBoard();
-        welcomePage.classList.add('hidden')
-        mainBoard.classList.remove('hidden')
+        welcomePage.classList.add('hidden');
+        mainBoard.classList.remove('hidden');
+        updateGhostTable();
         updatePlayersTable();
         changeScreen();
         ghost.pickMystery();
@@ -408,6 +409,7 @@
             playerRed.playerCorrectGuess.push(ghost.mystery[0])
             updateTurn();
             playerRed.cleanHand();
+            updateGhostTable();
             return updatePlayersTable();
         }
         suspectWrong[thisNumber].classList.add('tried');
@@ -425,6 +427,7 @@
             playerRed.playerCorrectGuess.push(ghost.mystery[1])
             updateTurn();
             playerRed.cleanHand();
+            updateGhostTable();
             return updatePlayersTable();
         }
         placeWrong[thisNumber].classList.add('tried');
@@ -442,6 +445,7 @@
             playerRed.playerCorrectGuess.push(ghost.mystery[2]);
             updateTurn();
             playerRed.cleanHand();
+            updateGhostTable();
             return youWon();
         }
         weaponWrong[thisNumber].classList.add('tried');
@@ -501,7 +505,21 @@
             weaponsPlayerTable.classList.remove('hidden')
         }
     }
-    
+
+    function updateGhostTable(){  
+        if (playerRed.playerCorrectGuess.length === 0){
+            placesOverview.classList.add('hidden')
+            weaponsOverview.classList.add('hidden')
+        } else if (playerRed.playerCorrectGuess.length === 1){
+            placesOverview.classList.remove('hidden')
+            weaponsOverview.classList.add('hidden')
+            suspectOverview.classList.add('hidden')
+        } else if (playerRed.playerCorrectGuess.length === 2){
+            suspectOverview.classList.add('hidden')
+            placesOverview.classList.add('hidden')
+            weaponsOverview.classList.remove('hidden')
+        }
+    }
     function youWon(){
         states.mainBoard = !states.mainBoard;
         states.wonScreen = !states.wonScreen;
@@ -542,4 +560,4 @@
         }
     }
 
-// });
+});
