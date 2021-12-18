@@ -317,7 +317,7 @@ window.addEventListener('load', () => {
 
     function playCrowSound(){
         let crowSound = new Audio ('./Mysterium/Sounds/CROW SOUND EFFECT.mp3');
-        crowSound.volume = 0.1;
+        crowSound.volume = 0.05;
         crowSound.play();
     }
 
