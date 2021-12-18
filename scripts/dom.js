@@ -25,6 +25,9 @@ window.addEventListener('load', () => {
     const wonScreen = document.querySelector('#won');
     const mysteryDown = document.querySelector('#mysteryDown');
     const loseScreen = document.querySelector('#lose');
+    const bgMusic = document.createElement('AUDIO');
+    bgMusic.src = './Mysterium/Sounds/Copyright-Free-Dark-Ambient-Musi.mp3';
+    bgMusic.volume = 0.02;
     
 
     const states = {
@@ -232,6 +235,7 @@ window.addEventListener('load', () => {
     const startBtn = document.querySelector('#start-button');
     startBtn.addEventListener('click', () => {
         boardMysterium.randomBoard();
+        playBG();
         welcomePage.classList.add('hidden');
         mainBoard.classList.remove('hidden');
         updateGhostTable();
@@ -268,10 +272,16 @@ window.addEventListener('load', () => {
     })}
     
     // Funções de ação
-    function selectCard (event) {
+    function selectCard(event) {
         const target = event.target;
         target.classList.toggle('active');
        
+    }
+
+    function playBG(){
+        bgMusic.loop = true;
+        bgMusic.load();
+        bgMusic.play();
     }
 
     function deliverCards() {
