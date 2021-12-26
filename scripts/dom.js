@@ -28,6 +28,8 @@ window.addEventListener('load', () => {
     const bgMusic = document.createElement('AUDIO');
     bgMusic.src = './Mysterium/Sounds/Copyright-Free-Dark-Ambient-Musi.mp3';
     bgMusic.volume = 0.02;
+
+    // teste buga buga
     
 
     const states = {
